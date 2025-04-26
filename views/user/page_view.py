@@ -7,10 +7,17 @@ from user.models import *
 from myadmin.models import *
 
 def Index(request):
+    posts = []
     user = UserModel.objects.get(id =request.user.id)
     posts = PostModel.objects.filter(country =user.country).order_by('-created_at').prefetch_related('media')
+
+    selectcountry = request.POST.get('country')
+    if selectcountry:
+        posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at').prefetch_related('media')
+    countries = CountryModel.objects.all()
     context = {
-        'posts':posts
+        'posts':posts,
+        'countries':countries
     }
     return render(request, 'user/index.html',context)
 
