@@ -1,0 +1,231 @@
+{% extends 'user/components/base_no_left_right.html' %}
+
+{% block title %}Business Page Dashboard{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-xl-3 col-lg-4">
+        <div class="d-block d-lg-none">
+            <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
+                <i class="material-symbols-outlined mat-icon"> tune </i>
+                <span>My profile</span>
+            </button>
+        </div>
+        <div class="profile-sidebar cus-scrollbar p-5">
+            <div class="d-block d-lg-none position-absolute end-0 top-0">
+                <button class="button profile-close">
+                    <i class="material-symbols-outlined mat-icon fs-xl"> close </i>
+                </button>
+            </div>
+            <div class="profile-item">
+                <div class="profile-item d-flex gap-3 align-items-center">
+                    <div class="avatar position-relative">
+                        <img class="avatar-img max-un img50x50 rounded-10" src="{{business.owner.profile.url}}"
+                            alt="{{business.owner.username}}">
+                    </div>
+                    <div class="text-area">
+                        <h6 class="m-0 mb-1">{{business.owner.username}}</h6>
+                        <p class="mdtxt">Owner</p>
+                    </div>
+                </div>
+                <div class="btn-item mt-5 d-center gap-3">
+                    <a href="#" class="cmn-btn w-100 justify-content-center gap-1">
+                        <i class="material-symbols-outlined mat-icon"> add </i>
+                        Invite
+                    </a>
+                    <div class="btn-group cus-dropdown dropend">
+                        <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                        </button>
+                        <ul class="dropdown-menu p-4 pt-2">
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                    <span>Unfollow</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                    <span>Hide</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="profile-link my-5 pb-5">
+                <li>
+                    <a href="/business/page/profile/"
+                        class="d-flex gap-4 {% if request.path == '/business/page/profile/' %} active{% endif %}">
+                        <i class="material-symbols-outlined mat-icon"> home </i>
+                        <span>Home</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="admin-tool">
+                <p class="mdtxt">Admin tool</p>
+                <ul class="profile-link border-0 mt-4">
+                    <li>
+                        <a href="/business/page/dashboard/"
+                            class="d-flex gap-4 {% if request.path == '/business/page/dashboard/' %} active{% endif %}">
+                            <i class="material-symbols-outlined mat-icon"> account_circle </i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/page/your/page/"
+                            class="d-flex gap-4 {% if request.path == '/business/page/your/page/' %} active{% endif %}">
+                            <i class="material-symbols-outlined mat-icon"> group </i>
+                            <span>Your Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/page/privacy/"
+                            class="d-flex gap-4 {% if request.path == '/business/page/privacy/' %} active{% endif %}">
+                            <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
+                            <span>Privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/page/setting/"
+                            class="d-flex gap-4 {% if request.path == '/business/page/setting/' %} active{% endif %}">
+                            <i class="material-symbols-outlined mat-icon"> settings </i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9 col-lg-8">
+        <div class="banner-area pages-create mb-5">
+            <div class="head-area d-center justify-content-between">
+                <h5>Overview</h5>
+                <div class="input-area py-2">
+                    <select>
+                        <option value="1">Last 7 days</option>
+                        <option value="2">Last 15 days</option>
+                        <option value="3">Last 30 days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cus-border pt-6 my-6">
+                <div class="row graph-col">
+                    <div class="col-xl-4 col-6">
+                        <div class="single-box graph-box text-start p-4">
+                            <h6 class="head-color">Post Content</h6>
+                            <div class="d-flex align-items-center">
+                                <h2 class="m-0">2</h2>
+                                <div id="postContentOne"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-6">
+                        <div class="single-box graph-box second text-start p-4">
+                            <h6 class="head-color">Post Content</h6>
+                            <div class="d-flex align-items-center">
+                                <h2 class="m-0">6</h2>
+                                <div id="postContentTwo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-6">
+                        <div class="single-box graph-box third text-start p-4">
+                            <h6 class="head-color">Page Growth</h6>
+                            <div class="d-flex align-items-center">
+                                <h2 class="m-0">9%</h2>
+                                <div id="postContentThree"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="single-box d-grid gap-2 p-4">
+                        <div class="head-area mb-4 d-center justify-content-between">
+                            <h5>Summary</h5>
+                            <span class="mdtxt">Last 7 days</span>
+                        </div>
+                        <div class="summary-wrapper d-center p-5 justify-content-between">
+                            <div class="left-side">
+                                <div class="profile-item d-flex gap-3 align-items-center">
+                                    <div class="icon-area d-center">
+                                        <i class="material-symbols-outlined mat-icon fs-xl"> post_add </i>
+                                    </div>
+                                    <div class="text-area text-start">
+                                        <p>Post</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-summary d-center">
+                                <h5 class="m-0">10</h5>
+                                <i class="material-symbols-outlined mat-icon fs-4"> north_west </i>
+                            </div>
+                        </div>
+                        <div class="summary-wrapper d-center p-5 justify-content-between">
+                            <div class="left-side">
+                                <div class="profile-item d-flex gap-3 align-items-center">
+                                    <div class="icon-area d-center">
+                                        <i class="material-symbols-outlined mat-icon fs-xl"> chat </i>
+                                    </div>
+                                    <div class="text-area text-start">
+                                        <p>Comments</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-summary d-center">
+                                <h5 class="m-0">10</h5>
+                                <i class="material-symbols-outlined mat-icon fs-4"> north_west </i>
+                            </div>
+                        </div>
+                        <div class="summary-wrapper d-center p-5 justify-content-between">
+                            <div class="left-side">
+                                <div class="profile-item d-flex gap-3 align-items-center">
+                                    <div class="icon-area d-center">
+                                        <i class="material-symbols-outlined mat-icon fs-xl"> favorite </i>
+                                    </div>
+                                    <div class="text-area text-start">
+                                        <p>Reactions</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right-summary d-center">
+                                <h5 class="m-0">10</h5>
+                                <i class="material-symbols-outlined mat-icon fs-4"> north_west </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="single-box post-graph">
+                        <div class="head-area pt-5 px-5 d-flex flex-wrap gap-3 justify-content-between">
+                            <p class="mdtxt head-color">Post Reach</p>
+                            <div class="right-area head-color d-sm-flex d-none gap-12 align-items-center">
+                                <span class="mdtxt like d-center">Like</span>
+                                <span class="mdtxt d-center">Comments</span>
+                            </div>
+                        </div>
+                        <div id="postReach"></div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="single-box post-graphs">
+                        <div class="head-area pt-5 px-5 d-flex justify-content-between">
+                            <p class="mdtxt head-color">Page Like</p>
+                            <div class="right-area head-color d-flex gap-12 align-items-center">
+                                <span class="mdtxt like-area d-center">Like</span>
+                            </div>
+                        </div>
+                        <div id="postChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

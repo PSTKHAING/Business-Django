@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    {% include 'user/components/favicon.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/outerpage.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="form-box">
+            <h1>Sign Up</h1>
+            <form action="/login/" method="POST">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fa fa-user"></i>
+                        <input type="text" name="" placeholder="Name" id="">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" id="">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" id="">
+                    </div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

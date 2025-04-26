@@ -1,0 +1,98 @@
+{% extends 'user/components/base_no_left_right.html' %}
+
+{% block title %}Business Page Create{% endblock %}
+{% load static %}
+{% block body %}
+
+<form action="/business/page/create/" enctype="multipart/form-data" method="POST" class="row">
+    {% csrf_token %}
+    <div class="col-xl-4 col-lg-5">
+        <div class="d-block d-lg-none">
+            <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
+                <i class="material-symbols-outlined mat-icon"> tune </i>
+                <span>My Create</span>
+            </button>
+        </div>
+        <div class="profile-sidebar cus-scrollbar p-5" style="overflow-x: unset;">
+            <div class="d-block d-lg-none position-absolute end-0 top-0">
+                <button class="button profile-close">
+                    <i class="material-symbols-outlined mat-icon fs-xl"> close </i>
+                </button>
+            </div>
+            <div class="head-area mb-5">
+                <h5>Create Page</h5>
+            </div>
+            <div class="profile-picture d-flex gap-2 mb-5 align-items-center">
+                <div class="avatar position-relative">
+                    <img class="avatar-img max-un img48x48" src="{{user.profile.url}}" alt="{{user.username}}">
+                </div>
+                <div class="text-area">
+                    <h6 class="m-0 mb-1"><a href="/profile/post/">{{user.username}}</a></h6>
+                    <p class="mdtxt">Admin</p>
+                </div>
+            </div>
+            <div class="text-center d-grid gap-4">
+                <div class="input-area second">
+                    <input type="text" name="name" required placeholder="Page name">
+                </div>
+                <div class="input-area second">
+                    <select name="type">
+                        {% for type in business_types %}
+                        <option value="{{ type.id }}">{{ type.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-area second">
+                    <textarea cols="30" placeholder="Bio(optional)" name="bio" rows="3"></textarea>
+                </div>
+                <div class="btn-area text-end">
+                    <button type="submit" class="cmn-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 col-lg-7">
+        <div class="banner-area create-group pages-create mb-5">
+            <div class="single-box p-5">
+                <div class="avatar-area position-relative">
+                    <img class="avatar-img w-100" src="{% static 'user/images/create-page-cover.png' %}" alt="avatar">
+                    <div class="abs-area w-100 position-absolute bottom-0 p-3 d-center justify-content-end">
+                        <div>
+                            <div class="file-upload">
+                                <label class="file mt-1">
+                                    <input type="file" name="background_profile">
+                                    <span class="file-custom bg-transparent border-0 p-3 d-grid text-center">
+                                        <p class="cmn-btn">Select Photo</p>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-area py-4 px-5 d-center flex-wrap gap-3 justify-content-between">
+                    <div class="d-grid gap-4 align-items-center">
+                        <div class="abs-avatar-item m-0">
+                            <div>
+                                <div class="file-upload">
+                                    <label class="file mt-1">
+                                        <input type="file" name="profile">
+                                        <span class="file-custom border-0 px-3 py-6 d-grid text-center">
+                                            <span class="material-symbols-outlined mat-icon fs-xxxl">
+                                                perm_media </span>
+                                            <span class="mdtxt">Group Profile</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-area text-start">
+                            <h5 class="m-0 mb-1">Page Name</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

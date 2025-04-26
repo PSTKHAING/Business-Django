@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Circlehub">
+    <meta name="description" content="Circlehub HTML5 Template">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% include 'user/components/favicon.html' %}
+    <link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- start preloader -->
+    {% include 'user/components/preloader.html' %}
+    <!-- end preloader -->
+
+    <!-- Scroll To Top Start-->
+    {% include 'user/components/scroll_to_top.html' %}
+    <!-- Scroll To Top End -->
+
+    <!-- header-section start -->
+    {% include 'user/components/header.html' %}
+    <!-- header-section end -->
+
+    <!-- Bottom Menu start -->
+    {% include 'user/components/bottom_menu.html' %}
+    <!-- Bottom Menu end -->
+
+    <!-- Main Content start -->
+    <main class="main-content">
+        <div class="container">
+            <div class="row">
+                {% include 'user/components/left.html' %}
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </main>
+    <!-- Main Content end -->
+
+    {% include 'user/components/popup.html' %}
+
+    <!--==================================================================-->
+    <script src="{% static 'user/js/plugins/jquery.min.js' %}"></script>
+    <script src="{% static 'user/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'user/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'user/js/plugins/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'user/js/plugins/plyr.js' %}"></script>
+    <script src="{% static 'user/js/plugins/apexcharts.js' %}"></script>
+    <script src="{% static 'user/js/plugins/wow.min.js' %}"></script>
+    <script src="{% static 'user/js/plugins/plugin.js' %}"></script>
+    <script src="{% static 'user/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<div class="message__container">
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="alert {{message.tags}} message-tag alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+</div>
+
+<style>
+    .message__container {
+        position: fixed;
+        display: inline-flex;
+        flex-direction: column-reverse;
+        top: 100px;
+        right: 3%;
+        z-index: 100;
+        max-height: 90vh;
+        overflow-y: scroll;
+    }
+
+    .message__container .message-tag {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .message__container .message-tag .btn-close {
+        display: block;
+        position: relative;
+        padding: 0.5rem;
+    }
+</style>

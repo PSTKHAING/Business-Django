@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email OTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+        }
+
+        h2 {
+            color: #2979ff;
+        }
+
+        .otp {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2E7D32;
+            margin: 20px 0;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .footer {
+            font-size: 12px;
+            margin-top: 20px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #2979ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Email OTP</h2>
+        <hr>
+        <p>Dear {{ user.get_full_name }},</p>
+        <p>Your One-Time Password (OTP) is:</p>
+        <div class="otp">{{ otp }}</div>
+        <p>Please use this OTP to complete your login process. Do not share this code with anyone.</p>
+        <p>Thank you for using Email OTP!</p>
+        <div class="footer">© <a href="https://www.rohitchouhan.com">www.rohitchouhan.com</a>. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>
