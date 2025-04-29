@@ -8,16 +8,35 @@ from myadmin.models import *
 
 def Index(request):
     posts = []
+    selectcountry = ""
     user = UserModel.objects.get(id =request.user.id)
     posts = PostModel.objects.filter(country =user.country).order_by('-created_at').prefetch_related('media')
 
     selectcountry = request.POST.get('country')
+    
     if selectcountry:
+        request.session['country'] = selectcountry
         posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at').prefetch_related('media')
+    else:
+        request.session['country'] = user.country.id
+    countries = CountryModel.objects.all()
+    print("++++++++++++++",request.session['country'])
+    context = {
+        'posts':posts,
+        'countries':countries,
+        'selectcountry':selectcountry
+    }
+    return render(request, 'user/index.html',context)
+
+def Search(request):
+    country = request.session['country']
+    search = request.GET.get('search')
+    posts = PostModel.objects.filter(country = country,content__contains=search).order_by('-created_at').prefetch_related('media')
     countries = CountryModel.objects.all()
     context = {
         'posts':posts,
-        'countries':countries
+        'countries':countries,
+        'selectcountry':country
     }
     return render(request, 'user/index.html',context)
 

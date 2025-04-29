@@ -28,6 +28,7 @@ urlpatterns = [
 
     #  USER URLS
 
+    path('search/',page_view.Search),
     path('',page_view.Index),
     path('login/',auth_view.LogIn),
     path('logout/',auth_view.LogOut),
