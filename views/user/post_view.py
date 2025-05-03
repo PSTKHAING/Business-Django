@@ -39,3 +39,33 @@ def PostCreate(request):
 
         messages.success(request, "Post created successfully!")
         return redirect('/')
+    
+def PostDetails(request,id):
+    post = PostModel.objects.get(id=id)
+    comments = CommentModel.objects.filter(post=post).order_by('-created_at')
+    context = {
+        'post': post,
+        'comments': comments,
+        }
+    return render(request, 'user/post_details.html', context)
+
+def PostComment(request,id,page):
+    post = PostModel.objects.get(id=id)
+    if request.method == 'POST':
+        comment = CommentModel.objects.create(
+            user =request.user,
+            post = post,
+            content = request.POST.get('content')
+        )
+        comment.save() 
+        return redirect(f'/post/detail/{id}/') if page == "details" else redirect('/')
+
+def PostReaction(request, id):
+    post = PostModel.objects.get(id=id)
+    if request.user in post.reaction.all():
+        post.reaction.remove(request.user)
+        message = 'Like removed'
+    else:
+        post.reaction.add(request.user)
+        message = 'Like added'
+    return JsonResponse({'message': message})

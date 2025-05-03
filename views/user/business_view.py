@@ -5,10 +5,8 @@ from myadmin.models import *
 
 def BusinessPage(request):
     business = BusinessModel.objects.all()
-    my_business_page = BusinessModel.objects.get(owner_id = request.user.id)
     context = {
-        'business': business,
-        'my_business_page':my_business_page.id
+        'business': business
     }
     return render(request, 'user/business_page.html', context)
 
@@ -48,46 +46,43 @@ def BusinessPageInfo(request):
         business.website = request.POST.get('website')
         business.address = request.POST.get('address')
         business.country_id = request.POST.get('country')
+        business.owner.is_business = True
+        business.owner.save()
         business.save()
-        return redirect('/business/page/profile/')
+        return redirect(f'/business/page/profile/{business.id}/')
 
 def BusinessPageProfile(request,id):
-    business = BusinessModel.objects.get(id = id)
     context = {
-        'business': business,
+        
     }
     return render(request, 'user/business_page_profile.html', context)
 
-def BusinessPageDashboard(request):
-    business = BusinessModel.objects.get(owner_id=request.user.id)
+def BusinessPageDashboard(request,id):
     context = {
-        'business': business,
+        
     }
     return render(request, 'user/business_page_dashboard.html', context)
 
-def BusinessPageYourPage(request):
-    business = BusinessModel.objects.get(owner_id=request.user.id)
+def BusinessPageYourPage(request,id):
     context = {
-        'business': business,
+        
     }
     return render(request, 'user/business_page_your_page.html', context)
 
-def BusinessPagePrivacy(request):
-    business = BusinessModel.objects.get(owner_id=request.user.id)
+def BusinessPagePrivacy(request,id):
     context = {
-        'business': business,
+        
     }
     return render(request, 'user/business_page_privacy.html', context)
 
-def BusinessPageSetting(request):
-    business = BusinessModel.objects.get(owner_id=request.user.id)
+def BusinessPageSetting(request,id):
     context = {
-        'business': business,
+        
     }
     return render(request, 'user/business_page_setting.html', context)
 
-def BusinessPageProfileUpdate(request):
-    business = BusinessModel.objects.get(owner_id=request.user.id)
+def BusinessPageProfileUpdate(request,id):
+    business = BusinessModel.objects.get(id = id)
     if request.method == "POST":
         if request.FILES.get('profile'):
             business.profile.delete()
@@ -100,4 +95,4 @@ def BusinessPageProfileUpdate(request):
         business.email = request.POST.get('email')
         business.bio = request.POST.get('bio')
         business.save()
-        return redirect('/business/page/setting/')
+        return redirect(f'/business/page/setting/{business.id}/')

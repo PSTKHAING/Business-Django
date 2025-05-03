@@ -5,6 +5,12 @@
 {% block body %}
 {% load humanize %}
 
+<style>
+    .filled {
+        color: red;
+    }
+</style>
+
 <div class="col-xxl-6 col-xl-5 col-lg-8 mt-0 mt-lg-10 mt-xl-0 d-flex flex-column gap-7 cus-z">
     <!-- <div class="story-carousel">
         <div class="single-item">
@@ -90,22 +96,19 @@
         <form action="#" class="w-100 position-relative">
             <textarea onclick="window.location.href='/post/create/'" readonly cols="10" class="resize-none" rows="2"
                 placeholder="Write something to {{user.username}}.."></textarea>
-            <div class="abs-area position-absolute d-none d-sm-block">
-                <i class="material-symbols-outlined mat-icon xxltxt"> sentiment_satisfied </i>
-            </div>
         </form>
     </div>
     <div class="post-item d-flex flex-column gap-5 gap-md-7" id="news-feed">
 
-       <form action="/" method="POST">
-        {% csrf_token %}
-        <select name="country">
-            {% for country in countries %}
-            <option value="{{country.id}}">{{country}}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Select</button>
-       </form>
+        <!-- <form action="/" method="POST">
+            {% csrf_token %}
+            <select name="country">
+                {% for country in countries %}
+                <option value="{{country.id}}">{{country}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Select</button>
+        </form> -->
         {% for post in posts %}
         <div class="post-single-box p-3 p-sm-5">
             <div class="top-area pb-5">
@@ -116,46 +119,10 @@
                                 src="{{post.author.profile.url}}" alt="{{post.author.username}}">
                         </div>
                         <div class="info-area">
-                            <h6 class="m-0"><a href="/profile/post/">{{post.author.username}}</a></h6>
-                            <span class="mdtxt status">Active</span>
+                            <h6 class="m-0"><a href="/profile/post/{{post.author.id}}/">{{post.author.username}}</a>
+                            </h6>
+                            <span class="mdtxt status">{{post.created_at | naturaltime }}</span>
                         </div>
-                    </div>
-                    <div class="btn-group cus-dropdown">
-                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                        </button>
-                        <ul class="dropdown-menu p-4 pt-2">
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
-                                    <span>Saved Post</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                    <span>Unfollow</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                    <span>Hide Post</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> lock </i>
-                                    <span>Block</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> flag </i>
-                                    <span>Report Post</span>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="py-4">
@@ -165,14 +132,14 @@
                 {% if post.media.all|length == 1 %}
                 {% for media in post.media.all %}
                 <div class="post-img">
-                    <img src="{{media.file.url}}" class="w-100 img596x350" alt="image">
+                    <img src="{{media.file.url}}" class="w-100" alt="image">
                 </div>
                 {% endfor %}
                 {% elif post.media.all|length == 2 %}
                 <div class="post-img  d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
                     {% for media in post.media.all %}
                     <div class="single">
-                        <img src="{{media.file.url}}" class="w-100 img290x350" alt="image">
+                        <img src="{{media.file.url}}" class="w-100" alt="image">
                     </div>
                     {% endfor %}
                 </div>
@@ -181,11 +148,11 @@
                     {% for media in post.media.all %}
                     {% if forloop.first %}
                     <div class="single">
-                        <img src="{{ media.file.url }}" class="w-100 img290x350" alt="image">
+                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                     </div>
                     <div class="single d-grid gap-3">
                         {% elif forloop.counter == 2 or forloop.last %}
-                        <img src="{{ media.file.url }}" class="w-100 img290x167" alt="image">
+                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                         {% if forloop.last %}
                     </div>
                     {% endif %}
@@ -200,15 +167,15 @@
                         {% endif %}
 
                         {% if forloop.counter == 1 or forloop.counter == 2 %}
-                        <img src="{{ media.file.url }}" class="w-100 img290x167" alt="image">
+                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                         {% if forloop.counter == 2 %}
                     </div>
                     {% endif %}
                     {% elif forloop.counter == 3 %}
                     <div class="single d-grid gap-3">
-                        <img src="{{ media.file.url }}" class="w-100 img290x167" alt="image">
+                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                         {% elif forloop.counter == 4 %}
-                        <img src="{{ media.file.url }}" class="w-100 img290x167" alt="image">
+                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                     </div>
                     {% endif %}
                     {% endfor %}
@@ -225,16 +192,19 @@
                     </ul>
                 </div>
                 <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                    <button class="mdtxt">4 Comments</button>
+                    <button type="button" class="mdtxt" onclick="window.location.href='/post/details/{{post.id}}/'">4
+                        Comments</button>
                     <button class="mdtxt">1 Shares</button>
                 </div>
             </div>
             <div class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                    <i class="material-symbols-outlined mat-icon"> favorite </i>
+                <button class="d-center gap-1 gap-sm-2 mdtxt reaction" data-post-id="{{ post.id }}">
+                    <i
+                        class="{% if request.user in post.reaction.all %}fas fa-heart filled{% else %}far fa-heart{% endif %}"></i>
                     Like
                 </button>
-                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
+                    onclick="window.location.href='/post/details/{{post.id}}/'">
                     <i class="material-symbols-outlined mat-icon"> chat </i>
                     Comment
                 </button>
@@ -243,7 +213,7 @@
                     Share
                 </button>
             </div>
-            <form action="#" method="POST">
+            <form action="/post/comment/{{post.id}}/index/" method="POST">
                 {% csrf_token %}
                 <div class="d-flex mt-5 gap-3">
                     <div class="profile-box d-none d-xxl-block">
@@ -251,278 +221,51 @@
                                 alt="{{user.username}}"></a>
                     </div>
                     <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                        <input placeholder="Write a comment..">
-                        <div class="file-input d-flex gap-1 gap-md-2">
-                            <div class="file-upload">
-                                <label class="file">
-                                    <input type="file">
-                                    <span class="file-custom border-0 d-grid text-center">
-                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                            gif_box </span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="file-upload">
-                                <label class="file">
-                                    <input type="file">
-                                    <span class="file-custom border-0 d-grid text-center">
-                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                            perm_media </span>
-                                    </span>
-                                </label>
-                            </div>
-                            <span class="mood-area">
-                                <span class="material-symbols-outlined mat-icon m-0 xxltxt"> mood
-                                </span>
-                            </span>
-                        </div>
+                        <input placeholder="Write a comment.." name="content">
                     </div>
                     <div class="btn-area d-flex">
-                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
+                        <button class="cmn-btn px-2 px-sm-5 px-lg-6" type="submit">
                             <i class="material-symbols-outlined mat-icon m-0 fs-xxl"> near_me </i>
                         </button>
                     </div>
                 </div>
             </form>
-            <div class="comments-area mt-5">
-                <div class="single-comment-area ms-1 ms-xxl-15">
-                    <div class="parent-comment d-flex gap-2 gap-sm-4">
-                        <div class="avatar-item d-center align-items-baseline">
-                            <img class="avatar-img max-un img48x48 rounded-10" src="{{user.profile.url}}" alt="avatar">
-                        </div>
-                        <div class="info-item active">
-                            <div class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                <div class="title-area">
-                                    <h6 class="m-0 mb-3"><a href="public-profile-post.html">Lori
-                                            Cortez</a></h6>
-                                    <p class="mdtxt">The only way to solve the problem is to code for
-                                        the hardware directly</p>
-                                </div>
-                                <div class="btn-group dropend cus-dropdown">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon">
-                                                    hide_source </i>
-                                                <span>Hide Comments</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> flag </i>
-                                                <span>Report Comments</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="like-share d-flex gap-6 mt-2">
-                                <li class="d-center">
-                                    <button class="mdtxt">Like</button>
-                                </li>
-                                <li class="d-center flex-column">
-                                    <button class="mdtxt reply-btn">Reply</button>
-                                </li>
-                                <li class="d-center">
-                                    <button class="mdtxt">Share</button>
-                                </li>
-                            </ul>
-                            <form action="#" class="comment-form">
-                                <div class="d-flex gap-3">
-                                    <input placeholder="Write a comment.." class="py-3">
-                                    <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                        <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                            near_me </i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="sibling-comment comment-item-nested single-comment-area mt-7 ms-13 ms-sm-15">
-                        <div class="d-flex gap-2 gap-sm-4 align-items-baseline">
-                            <div class="avatar-item">
-                                <img class="avatar-img max-un" src="assets/images/avatar-4.png" alt="avatar">
-                            </div>
-                            <div class="info-item">
-                                <div class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                    <div class="title-area">
-                                        <h6 class="m-0 mb-3"><a href="public-profile-post.html">Alexa</a></h6>
-                                        <p class="mdtxt">The only way to solve the</p>
-                                    </div>
-                                    <div class="btn-group dropend cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Comments</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Comments</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="like-share d-flex gap-6 mt-2">
-                                    <li class="d-center">
-                                        <button class="mdtxt">Like</button>
-                                    </li>
-                                    <li class="d-center flex-column">
-                                        <button class="mdtxt reply-btn">Reply</button>
-                                    </li>
-                                    <li class="d-center">
-                                        <button class="mdtxt">Share</button>
-                                    </li>
-                                </ul>
-                                <form action="#" class="comment-form">
-                                    <div class="d-flex gap-3">
-                                        <input placeholder="Write a comment.." class="py-3">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-comment-area comment-item-nested mt-7 ms-13 ms-sm-15">
-                        <div class="d-flex gap-2 gap-sm-4 align-items-baseline">
-                            <div class="avatar-item">
-                                <img class="avatar-img max-un" src="assets/images/avatar-7.png" alt="avatar">
-                            </div>
-                            <div class="info-item">
-                                <div class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                    <div class="title-area">
-                                        <h6 class="m-0 mb-3"><a href="public-profile-post.html">Haplika</a></h6>
-                                        <p class="mdtxt">The only way to solve the</p>
-                                    </div>
-                                    <div class="btn-group dropend cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Comments</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Comments</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul class="like-share d-flex gap-6 mt-2">
-                                    <li class="d-center">
-                                        <button class="mdtxt">Like</button>
-                                    </li>
-                                    <li class="d-center flex-column">
-                                        <button class="mdtxt reply-btn">Reply</button>
-                                    </li>
-                                    <li class="d-center">
-                                        <button class="mdtxt">Share</button>
-                                    </li>
-                                </ul>
-                                <form action="#" class="comment-form">
-                                    <div class="d-flex gap-3">
-                                        <input placeholder="Write a comment.." class="py-3">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="comments-area mt-5">
-                <div class="single-comment-area ms-1 ms-xxl-15">
-                    <div class="d-flex gap-4">
-                        <div class="avatar-item d-center align-items-baseline">
-                            <img class="avatar-img max-un" src="assets/images/avatar-3.png" alt="avatar">
-                        </div>
-                        <div class="info-item w-100">
-                            <div class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                <div class="title-area">
-                                    <h6 class="m-0 mb-3"><a href="public-profile-post.html">Marlio</a>
-                                    </h6>
-                                    <div class="post-img">
-                                        <img src="assets/images/icon/emoji-love-2.png" alt="icon">
-                                    </div>
-                                </div>
-                                <div class="btn-group dropend cus-dropdown">
-                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                    </button>
-                                    <ul class="dropdown-menu p-4 pt-2">
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon">
-                                                    hide_source </i>
-                                                <span>Hide Comments</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                <i class="material-symbols-outlined mat-icon"> flag </i>
-                                                <span>Report Comments</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="like-share d-flex gap-6 mt-2">
-                                <li class="d-center">
-                                    <button class="mdtxt">Like</button>
-                                </li>
-                                <li class="d-center flex-column">
-                                    <button class="mdtxt reply-btn">Reply</button>
-                                </li>
-                                <li class="d-center">
-                                    <button class="mdtxt">Share</button>
-                                </li>
-                            </ul>
-                            <form action="#" class="comment-form">
-                                <div class="d-flex gap-3">
-                                    <input placeholder="Write a comment.." class="py-3">
-                                    <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                        <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                            near_me </i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         {% endfor %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Add an event listener to each like button
+                document.querySelectorAll('.like-comment-share .reaction').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const postId = this.dataset.postId;
+                        const url = `/post/reaction/${postId}/`;
+                        const heartIcon = this.querySelector('i'); // Get the heart icon
+
+                        // Send the POST request
+                        fetch(url, {
+                            method: 'POST',
+                            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                // Change the icon based on whether the post is liked or not
+                                if (heartIcon.classList.contains('fas')) {
+                                    heartIcon.classList.remove('fas', 'fa-heart', 'filled');
+                                    heartIcon.classList.add('far', 'fa-heart');
+                                } else {
+                                    heartIcon.classList.remove('far', 'fa-heart');
+                                    heartIcon.classList.add('fas', 'fa-heart', 'filled');
+                                }
+                            })
+                            .catch(error => console.log('Error:', error));
+                    });
+                });
+            });
+
+
+        </script>
+
         <div class="post-single-box p-3 p-sm-5">
             <div class="top-area pb-5">
                 <div class="profile-area d-center justify-content-between">
@@ -596,7 +339,8 @@
                     </ul>
                 </div>
                 <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                    <button class="mdtxt">4 Comments</button>
+                    <button type="button" class="mdtxt" onclick="window.location.href='/post/details/{{post.id}}/'">4
+                        Comments</button>
                     <button class="mdtxt">1 Shares</button>
                 </div>
             </div>
@@ -605,7 +349,8 @@
                     <i class="material-symbols-outlined mat-icon"> favorite </i>
                     Like
                 </button>
-                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
+                    onclick="window.location.href='/post/details/{{post.id}}/'">
                     <i class="material-symbols-outlined mat-icon"> chat </i>
                     Comment
                 </button>

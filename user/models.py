@@ -37,3 +37,10 @@ class BusinessModel(models.Model):
     country = models.ForeignKey(CountryModel,on_delete=models.SET_NULL,null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+
+class CommentModel(models.Model):
+    post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

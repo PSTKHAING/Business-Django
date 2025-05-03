@@ -1,0 +1,80 @@
+{% load static %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="banner-area pages-create mb-5">
+            <div class="single-box p-5">
+                <div class="top-area py-4 d-center flex-wrap gap-3 justify-content-between align-items-start">
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="avatar-item p">
+                            {% if current_user.profile %}
+                            <img class="avatar-img img120x120 max-un" src="{{current_user.profile.url}}" alt="avatar">
+                            {% else %}
+                            <img class="avatar-img img120x120 max-un" src="{% static 'user/images/no-profile.png' %}"
+                                alt="avatar">
+                            {% endif %}
+                        </div>
+                        <div class="text-area text-start">
+                            <h4 class="m-0 mb-2">{{current_user.username}}</h4>
+                            <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
+                                <ul class="d-flex align-items-center justify-content-center">
+                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
+                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
+                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
+                                </ul>
+                                <span class="mdtxt d-center">10k Followers</span>
+                                <span class="mdtxt d-center following">200 Following</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% if current_user.id == request.user.id %}
+                    <div class="btn-item d-center gap-3">
+                        <a href="/profile/update/{{current_user.id}}/" class="cmn-btn d-center gap-1">
+                            <i class="material-symbols-outlined mat-icon fs-2"> edit_note </i>
+                            Edit Profile
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="page-details">
+                    <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area">
+                        {% url 'profile_post' current_user.id as profile_post_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_post_url}}"
+                                class="nav-link d-center {% if request.path == profile_post_url %} active {% endif %}">Post</a>
+                        </li>
+                        {% url 'profile_about' current_user.id as profile_about_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_about_url}}"
+                                class="nav-link d-center {% if request.path == profile_about_url %} active {% endif %}">About</a>
+                        </li>
+                        {% url 'profile_photo' current_user.id as profile_photo_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_photo_url}}"
+                                class="nav-link d-center {% if request.path == profile_photo_url %} active {% endif %}">Photos</a>
+                        </li>
+                        {% url 'profile_video' current_user.id as profile_video_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_video_url}}"
+                                class="nav-link d-center {% if request.path == profile_video_url %} active {% endif %}">Videos</a>
+                        </li>
+                        {% url 'profile_group' current_user.id as profile_group_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_group_url}}"
+                                class="nav-link d-center  {% if request.path == profile_group_url %} active {% endif %}">Groups</a>
+                        </li>
+                        {% url 'profile_connection' current_user.id as profile_connection_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_connection_url}}"
+                                class="nav-link d-center  {% if request.path == profile_connection_url %} active {% endif %}">Connections</a>
+                        </li>
+                        {% url 'profile_event' current_user.id as profile_event_url %}
+                        <li class="nav-item" role="presentation">
+                            <a href="{{profile_event_url}}"
+                                class="nav-link d-center  {% if request.path == profile_event_url %} active {% endif %}">Events</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

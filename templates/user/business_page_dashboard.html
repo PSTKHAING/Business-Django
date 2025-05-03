@@ -5,105 +5,12 @@
 {% block body %}
 
 <div class="row">
-    <div class="col-xl-3 col-lg-4">
-        <div class="d-block d-lg-none">
-            <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
-                <i class="material-symbols-outlined mat-icon"> tune </i>
-                <span>My profile</span>
-            </button>
-        </div>
-        <div class="profile-sidebar cus-scrollbar p-5">
-            <div class="d-block d-lg-none position-absolute end-0 top-0">
-                <button class="button profile-close">
-                    <i class="material-symbols-outlined mat-icon fs-xl"> close </i>
-                </button>
-            </div>
-            <div class="profile-item">
-                <div class="profile-item d-flex gap-3 align-items-center">
-                    <div class="avatar position-relative">
-                        <img class="avatar-img max-un img50x50 rounded-10" src="{{business.owner.profile.url}}"
-                            alt="{{business.owner.username}}">
-                    </div>
-                    <div class="text-area">
-                        <h6 class="m-0 mb-1">{{business.owner.username}}</h6>
-                        <p class="mdtxt">Owner</p>
-                    </div>
-                </div>
-                <div class="btn-item mt-5 d-center gap-3">
-                    <a href="#" class="cmn-btn w-100 justify-content-center gap-1">
-                        <i class="material-symbols-outlined mat-icon"> add </i>
-                        Invite
-                    </a>
-                    <div class="btn-group cus-dropdown dropend">
-                        <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                        </button>
-                        <ul class="dropdown-menu p-4 pt-2">
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                    <span>Unfollow</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                    <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                    <span>Hide</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <ul class="profile-link my-5 pb-5">
-                <li>
-                    <a href="/business/page/profile/"
-                        class="d-flex gap-4 {% if request.path == '/business/page/profile/' %} active{% endif %}">
-                        <i class="material-symbols-outlined mat-icon"> home </i>
-                        <span>Home</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="admin-tool">
-                <p class="mdtxt">Admin tool</p>
-                <ul class="profile-link border-0 mt-4">
-                    <li>
-                        <a href="/business/page/dashboard/"
-                            class="d-flex gap-4 {% if request.path == '/business/page/dashboard/' %} active{% endif %}">
-                            <i class="material-symbols-outlined mat-icon"> account_circle </i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/business/page/your/page/"
-                            class="d-flex gap-4 {% if request.path == '/business/page/your/page/' %} active{% endif %}">
-                            <i class="material-symbols-outlined mat-icon"> group </i>
-                            <span>Your Page</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/business/page/privacy/"
-                            class="d-flex gap-4 {% if request.path == '/business/page/privacy/' %} active{% endif %}">
-                            <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
-                            <span>Privacy</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/business/page/setting/"
-                            class="d-flex gap-4 {% if request.path == '/business/page/setting/' %} active{% endif %}">
-                            <i class="material-symbols-outlined mat-icon"> settings </i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-9 col-lg-8">
+
+    {% include 'user/components/business_sidebar.html' %}
+    <div class="{% if my_business_page.id == current_business_page.id %}col-xl-9 col-lg-8{% endif %}">
         <div class="banner-area pages-create mb-5">
             <div class="head-area d-center justify-content-between">
-                <h5>Overview</h5>
+                <h5>Overview {{my_business_page.owner.username}}</h5>
                 <div class="input-area py-2">
                     <select>
                         <option value="1">Last 7 days</option>

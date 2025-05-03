@@ -5,22 +5,27 @@ from django.conf import settings
 from django.contrib import messages
 from user.models import *
 from myadmin.models import *
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
+@login_required(login_url=settings.LOGIN_URL)
 def Index(request):
     posts = []
     selectcountry = ""
-    user = UserModel.objects.get(id =request.user.id)
-    posts = PostModel.objects.filter(country =user.country).order_by('-created_at').prefetch_related('media')
-
-    selectcountry = request.POST.get('country')
-    
-    if selectcountry:
-        request.session['country'] = selectcountry
-        posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at').prefetch_related('media')
-    else:
-        request.session['country'] = user.country.id
+    try:
+        user = UserModel.objects.get(id =request.user.id)
+        posts = PostModel.objects.filter(country =user.country).order_by('-created_at').prefetch_related('media')
+        selectcountry = request.POST.get('country')
+        
+        if selectcountry:
+            request.session['country'] = selectcountry
+            posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at').prefetch_related('media')
+        else:
+            request.session['country'] = user.country.id
+    except:
+        user = None
+        posts = PostModel.objects.all().order_by('-created_at').prefetch_related('media')
     countries = CountryModel.objects.all()
-    print("++++++++++++++",request.session['country'])
     context = {
         'posts':posts,
         'countries':countries,
@@ -44,72 +49,72 @@ def Agreement(request):
     return render(request,'user/agreement.html')
 
 @login_required(login_url= settings.LOGIN_URL)
-def ProfilePost(request):
-    user = request.user
+def ProfilePost(request,id):
+    
     context = {
-        'user': user,
+        
     }
     return render(request,'user/profile_post.html',context)
 
-def ProfileAbout(request):
-    user = request.user
+def ProfileAbout(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_about.html',context)
 
-def ProfileChat(request):
-    user = request.user
+def ProfileChat(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_chat.html',context)
 
-def ProfileConnection(request):
-    user = request.user
+def ProfileConnection(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_connection.html',context)
 
-def ProfileUpdate(request):
-    user = request.user
+def ProfileUpdate(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_update.html',context)
 
-def ProfileEvent(request):
-    user = request.user
+def ProfileEvent(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_event.html',context)
 
-def ProfileGroup(request):
-    user = request.user
+def ProfileGroup(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_group.html',context)
 
-def ProfileNotification(request):
-    user = request.user
+def ProfileNotification(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_notification.html',context)
 
-def ProfilePhoto(request):
-    user = request.user
+def ProfilePhoto(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_photo.html',context)
 
-def ProfileVideo(request):
-    user = request.user
+def ProfileVideo(request,id):
+    
     context = {
-        'user': user,
+        
         }
     return render(request,'user/profile_video.html',context)

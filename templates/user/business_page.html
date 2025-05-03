@@ -28,7 +28,7 @@
         </ul>
         <div class="btn-item">
             {% if request.user.is_business %}
-            <a href="/business/page/profile/{{my_business_page}}/" class="cmn-btn gap-1">
+            <a href="/business/page/profile/{{my_business_page.id}}/" class="cmn-btn gap-1">
                 Go To My Business Page
             </a>
             {% else %}
@@ -56,7 +56,8 @@
                                     <img class="avatar-img max-un img57x57" src="{{business.profile.url}}" alt="avatar">
                                 </div>
                                 <div class="text-area text-start">
-                                    <h6 class="m-0 mb-1"><a href="/business/page/profile/{{business.id}}/">{{business.name}}</a></h6>
+                                    <h6 class="m-0 mb-1"><a
+                                            href="/business/page/profile/{{business.id}}/">{{business.name}}</a></h6>
                                     <p class="mdtxt">Zara</p>
                                 </div>
                             </div>
