@@ -1,3 +1,4 @@
+{% load static %}
 <div class="header-menu py-3 header-menu d-block d-lg-none position-fixed bottom-0 w-100 cus-z">
     <div class="right-area position-relative d-flex justify-content-around gap-3 gap-xxl-6 align-items-center">
         <div class="single-item messages-area">
@@ -187,14 +188,18 @@
         <div class="single-item profile-area position-relative">
             <div class="profile-pic d-flex align-items-center">
                 <span class="avatar cmn-head active-status">
-                    <img class="avatar-img max-un img48x48" src="{{user.profile.url}}" alt="{{user.username}}">
+                    <img class="avatar-img max-un img48x48"
+                        src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                        alt="{{user.username}}">
                 </span>
             </div>
             <div class="main-area p-5 profile-content">
                 <div class="head-area">
                     <div class="d-flex gap-3 align-items-center">
                         <div class="avatar-item">
-                            <img class="avatar-img max-un img48x48" src="{{user.profile.url}}" alt="{{user.username}}">
+                            <img class="avatar-img max-un img48x48"
+                                src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                alt="{{user.username}}">
                         </div>
                         <div class="text-area">
                             <h6 class="m-0 mb-1">Lori Ferguson</h6>

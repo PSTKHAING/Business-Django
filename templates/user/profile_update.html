@@ -5,18 +5,21 @@
 {% block body %}
 {% load humanize %}
 
-<div class="row profile-picture-area">
+<form method="POST" action="/profile/update/{{request.user.id}}/" class="row profile-picture-area"
+    enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-8">
         <div class="single-box p-3">
-            <div class="d-block d-lg-none position-absolute end-0 top-0">
+            <!-- <div class="d-block d-lg-none position-absolute end-0 top-0">
                 <button class="button profile-close">
                     <i class="material-symbols-outlined mat-icon fs-xl"> close </i>
                 </button>
-            </div>
+            </div> -->
             <div class="upload-single">
                 <div class="profile-picture text-start">
                     {% if user.profile %}
-                    <img class="preview-image w-100" src="{{user.profile.url }}" alt="{{user.username}}">
+                    <img class="preview-image w-100" src="{% if user.profile%}{{user.profile.url }}{% endif %}"
+                        alt="{{user.username}}">
                     {% else %}
                     <img class="preview-image w-100" src="{% static 'user/images/no-profile.png' %}"
                         alt="{{user.username}}">
@@ -24,7 +27,7 @@
                 </div>
                 <div class="file-upload">
                     <label class="file text-center mt-4">
-                        <input type="file">
+                        <input type="file" name="profile">
                         <span class="cmn-btn d-center gap-1">
                             <i class="material-symbols-outlined mat-icon fs-2"> edit_note </i>
                             Change Profile Photo
@@ -38,14 +41,15 @@
         <div class="head-area mb-5">
             <h6>Edit Profile</h6>
         </div>
-        <form action="#" class="text-center d-grid gap-4">
+        <div class="text-center d-grid gap-4">
             <div class="single-box p-3 p-sm-5">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="single-input text-start">
                             <label for="name">Name</label>
                             <div class="input-area second">
-                                <input type="text" value="Lerio Mao" placeholder="Type name" autocomplete="off">
+                                <input type="text" name="username" value="{{user.username}}" placeholder="Type name"
+                                    autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -53,23 +57,17 @@
                         <div class="single-input text-start">
                             <label for="number">Number</label>
                             <div class="input-area second">
-                                <input type="text" value="(316) 555-0116" placeholder="Number" autocomplete="off">
+                                <input type="text" name="phone" value="{% if user.phone %}{{user.phone}}{% endif %}"
+                                    placeholder="Number" autocomplete="off">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="single-input text-start">
                             <label for="Email">Email</label>
                             <div class="input-area second">
-                                <input type="text" value="test@mail.com" placeholder="Email" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="single-input text-start">
-                            <label for="birthday">Birthday</label>
-                            <div class="input-area second">
-                                <input type="text" value="31-12-2000" placeholder="birthday" autocomplete="off">
+                                <input type="email" name="email" value="{{user.email}}" placeholder="Email"
+                                    autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -77,7 +75,8 @@
                         <div class="single-input text-start">
                             <label for="address">Address</label>
                             <div class="input-area second">
-                                <input type="text" value="775 Rolling Green Rd." placeholder="address"
+                                <input type="text" name="address"
+                                    value="{% if user.address %}{{user.address}}{% endif %}" placeholder="address"
                                     autocomplete="off">
                             </div>
                         </div>
@@ -86,585 +85,31 @@
                         <div class="single-input text-start">
                             <label for="country">Country</label>
                             <div class="input-area second">
-                                <input type="text" value="USA" placeholder="country" autocomplete="off">
+                                <select name="country">
+                                    {% for country in countries %}
+                                    <option value="{{country.id}}" {% if country.id == user.country.id %}selected{% endif %}>{{country.name}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <div class="head-area mt-5 text-start">
-                            <h6>Bio</h6>
-                            <p class="mdtxt mt-4">“Lorem ipsum dolor sit amet consectetur. Nec donec vestibulum eleifend
-                                lectus ipsum ultrices et dictum”.</p>
+                        <div class="single-input text-start">
+                            <label for="bio">Bio</label>
+                            <div class="input-area second">
+                                <textarea placeholder="bio"
+                                    name="bio">{% if user.bio %}{{user.bio}}{% endif %}</textarea>
+                            </div>
                         </div>
-                        <ul class="d-grid gap-3 mt-5">
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> work </i>
-                                    <span class="mdtxt">Associate Creative Director – Experience Design</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> work </i>
-                                    <span class="mdtxt">Former Designer at TECHTEK</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> work </i>
-                                    <span class="mdtxt">Former Designer at Telpino</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> school </i>
-                                    <span class="mdtxt">Master's degree</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> school </i>
-                                    <span class="mdtxt">Honors (English)</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> auto_awesome </i>
-                                    <span class="mdtxt">Religione</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="d-center gap-3 justify-content-between">
-                                <div class="info-area d-flex text-start align-items-center gap-2">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
-                                    <span class="mdtxt">Relationship (Single)</span>
-                                </div>
-                                <div class="input-item d-center text-start">
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-3 m-0"> public </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> public </i>
-                                                    <span>Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> person </i>
-                                                    <span>Only me</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                                    <span>Share</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="group-btn cus-dropdown dropend">
-                                        <button type="button" class="dropdown-btn d-center ps-2"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> edit </i>
-                                                    <span>Edit</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> delete </i>
-                                                    <span>Delete</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                     <div class="col-sm-12 mt-4">
                         <div class="btn-area text-end">
-                            <button class="cmn-btn">Saved Change</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Go Live Popup start -->
-<div class="go-live-popup">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="modal cmn-modal fade" id="goLiveMod">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content p-5">
-                            <div class="modal-header justify-content-center">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
-                                </button>
-                            </div>
-                            <div class="top-content pb-5">
-                                <h5>Go Live</h5>
-                            </div>
-                            <div class="mid-area">
-                                <div class="d-flex mb-5 gap-3">
-                                    <div class="profile-box">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <textarea cols="10" rows="2" placeholder="Write something to Lerio.."></textarea>
-                                </div>
-                                <div class="file-upload">
-                                    <label>Upload attachment</label>
-                                    <label class="file mt-1">
-                                        <input type="file">
-                                        <span class="file-custom pt-8 pb-8 d-grid text-center">
-                                            <i class="material-symbols-outlined mat-icon"> perm_media </i>
-                                            <span>Drag here or click to upload photo.</span>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="footer-area pt-5">
-                                <div class="btn-area d-flex justify-content-end gap-2">
-                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal"
-                                        aria-label="Close">Cancel</button>
-                                    <button class="cmn-btn">Go Live</button>
-                                </div>
-                            </div>
+                            <button type="submit" class="cmn-btn">Saved Change</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Go Live Popup end -->
-
-<!-- video popup start -->
-<div class="go-live-popup video-popup">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="modal cmn-modal fade" id="photoVideoMod">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content p-5">
-                            <div class="modal-header justify-content-center">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
-                                </button>
-                            </div>
-                            <div class="top-content pb-5">
-                                <h5>Add post photo/video</h5>
-                            </div>
-                            <div class="mid-area">
-                                <div class="d-flex mb-5 gap-3">
-                                    <div class="profile-box">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <textarea cols="10" rows="2" placeholder="Write something to Lerio.."></textarea>
-                                </div>
-                                <div class="file-upload">
-                                    <label>Upload attachment</label>
-                                    <label class="file mt-1">
-                                        <input type="file">
-                                        <span class="file-custom pt-8 pb-8 d-grid text-center">
-                                            <i class="material-symbols-outlined mat-icon"> perm_media </i>
-                                            <span>Drag here or click to upload photo.</span>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="footer-area pt-5">
-                                <div class="btn-area d-flex justify-content-end gap-2">
-                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal"
-                                        aria-label="Close">Cancel</button>
-                                    <button class="cmn-btn">Post</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- video popup end -->
-
-<!-- Go Live Popup start -->
-<div class="go-live-popup">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="modal cmn-modal fade" id="activityMod">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content p-5">
-                            <div class="modal-header justify-content-center">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                    <i class="material-symbols-outlined mat-icon xxltxt"> close </i>
-                                </button>
-                            </div>
-                            <div class="top-content pb-5">
-                                <h5>Create post</h5>
-                            </div>
-                            <div class="mid-area">
-                                <div class="d-flex mb-5 gap-3">
-                                    <div class="profile-box">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <textarea cols="10" rows="2" placeholder="Write something to Lerio.."></textarea>
-                                </div>
-                                <div class="file-upload">
-                                    <label>Upload attachment</label>
-                                    <label class="file mt-1">
-                                        <input type="file">
-                                        <span class="file-custom pt-8 pb-8 d-grid text-center">
-                                            <i class="material-symbols-outlined mat-icon"> perm_media </i>
-                                            <span>Drag here or click to upload photo.</span>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="tooltips-area d-flex mt-3 gap-2">
-                                    <button type="button" class="btn d-center" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Fallings/Activity">
-                                        <i class="material-symbols-outlined mat-icon"> mood </i>
-                                    </button>
-                                    <button type="button" class="btn d-center" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Video">
-                                        <i class="material-symbols-outlined mat-icon"> movie </i>
-                                    </button>
-                                    <button type="button" class="btn d-center" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Maps">
-                                        <i class="material-symbols-outlined mat-icon"> location_on </i>
-                                    </button>
-                                    <button type="button" class="btn d-center" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Tag">
-                                        <i class="material-symbols-outlined mat-icon"> sell </i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="footer-area d-flex justify-content-between pt-5">
-                                <div class="left-area">
-                                    <select>
-                                        <option value="1">Public</option>
-                                        <option value="2">Only Me</option>
-                                        <option value="3">Friends</option>
-                                        <option value="4">Custom</option>
-                                    </select>
-                                </div>
-                                <div class="btn-area d-flex justify-content-end gap-2">
-                                    <button type="button" class="cmn-btn alt" data-bs-dismiss="modal"
-                                        aria-label="Close">Cancel</button>
-                                    <button class="cmn-btn">Post</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Go Live Popup end -->
-
+</form>
 {% endblock %}

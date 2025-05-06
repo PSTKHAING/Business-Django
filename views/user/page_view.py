@@ -56,13 +56,6 @@ def ProfilePost(request,id):
     }
     return render(request,'user/profile_post.html',context)
 
-def ProfileAbout(request,id):
-    
-    context = {
-        
-        }
-    return render(request,'user/profile_about.html',context)
-
 def ProfileChat(request,id):
     
     context = {
@@ -78,11 +71,25 @@ def ProfileConnection(request,id):
     return render(request,'user/profile_connection.html',context)
 
 def ProfileUpdate(request,id):
-    
-    context = {
-        
-        }
-    return render(request,'user/profile_update.html',context)
+    countries = CountryModel.objects.all().order_by('-created_at')
+    user = UserModel.objects.get(id = request.user.id)
+    if request.method == "GET":
+        context = {
+            'countries':countries
+            }
+        return render(request,'user/profile_update.html',context)
+    if request.method == "POST":
+        user.username = request.POST.get('username')
+        user.email = request.POST.get('email')
+        if request.FILES.get('profile'):
+            user.profile.delete()
+            user.profile = request.FILES.get('profile')
+        user.phone = request.POST.get('phone')
+        user.address = request.POST.get('address')
+        user.bio  = request.POST.get('bio')
+        user.country_id = request.POST.get('country')
+        user.save()
+        return redirect(f'/profile/update/{user.id}/')
 
 def ProfileEvent(request,id):
     

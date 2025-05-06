@@ -15,15 +15,6 @@
                         </div>
                         <div class="text-area text-start">
                             <h4 class="m-0 mb-2">{{current_user.username}}</h4>
-                            <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
-                                <ul class="d-flex align-items-center justify-content-center">
-                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
-                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
-                                    <li><img src="{{current_user.profile.url}}" class="img25x25" alt="image"></li>
-                                </ul>
-                                <span class="mdtxt d-center">10k Followers</span>
-                                <span class="mdtxt d-center following">200 Following</span>
-                            </div>
                         </div>
                     </div>
                     {% if current_user.id == request.user.id %}
@@ -41,11 +32,6 @@
                         <li class="nav-item" role="presentation">
                             <a href="{{profile_post_url}}"
                                 class="nav-link d-center {% if request.path == profile_post_url %} active {% endif %}">Post</a>
-                        </li>
-                        {% url 'profile_about' current_user.id as profile_about_url %}
-                        <li class="nav-item" role="presentation">
-                            <a href="{{profile_about_url}}"
-                                class="nav-link d-center {% if request.path == profile_about_url %} active {% endif %}">About</a>
                         </li>
                         {% url 'profile_photo' current_user.id as profile_photo_url %}
                         <li class="nav-item" role="presentation">

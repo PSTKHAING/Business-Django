@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     {% load static %}
     {% include 'user/components/favicon.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'user/css/outerpage.css' %}" />
@@ -17,22 +17,27 @@
         <div class="left__section">
             <div class="title">
                 <div class="text">
-                    <h1>Login</h1>
+                    <h1>Welcome</h1>
                     <img src="{% static 'user/images/victory.svg' %}" alt="">
                 </div>
                 <p>Fill in the details to get started with the best chat app!</p>
             </div>
             <div class="form__container">
-                <form action="/login/" method="POST">
+                <form action="/register/" method="POST">
                     {% csrf_token %}
-                    <input placeholder="Enter Your Email" class="form__input" name="email" type="email">
-                    <input placeholder="Enter Your Password" class="form__input" name="password" type="password">
-                    <button type="submit">Login</button>
+                    <input placeholder="Enter Your Name" type="text" name="username" class="form__input">
+                    <input placeholder="Enter Your Email" type="email" name="email" class="form__input">
+                    <select class="form__input" name="country">
+                        {% for country in countries %}
+                        <option value="{{country.id}}">{{country.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input class="form__input" placeholder="Enter Your Password" name="password" type="password">
+                    <button type="submit">Register</button>
                 </form>
             </div>
             <div class="forgot__register">
-                <a href="/confirm_email_to_reset_password/">Forgot Password?</a>
-                <a href="/register/">Create An Account</a>
+                <a href="/login/"><i class="fa fa-arrow-left"></i> Go Back To Login</a>
             </div>
         </div>
         <div class="right__section">

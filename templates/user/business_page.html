@@ -47,53 +47,22 @@
                 <div class="col-xl-4 col-sm-6 col-8">
                     <div class="single-box p-5">
                         <div class="avatar-area">
-                            <img class="avatar-img w-100 img266x110" src="{{business.background_profile.url}}"
-                                alt="avatar">
+                            <img class="avatar-img w-100 img250x250" src="{{business.profile.url}}"
+                                alt="{{business.name}}">
                         </div>
                         <div class="head-area my-5 d-flex justify-content-between">
                             <div class="d-flex gap-3 align-items-center">
-                                <div class="avatar-item">
-                                    <img class="avatar-img max-un img57x57" src="{{business.profile.url}}" alt="avatar">
-                                </div>
                                 <div class="text-area text-start">
                                     <h6 class="m-0 mb-1"><a
                                             href="/business/page/profile/{{business.id}}/">{{business.name}}</a></h6>
-                                    <p class="mdtxt">Zara</p>
                                 </div>
                             </div>
-                            <div class="btn-group bg-transparent cus-dropdown dropend">
-                                <button type="button" class="dropdown-btn d-center px-2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
-                                </button>
-                                <ul class="dropdown-menu p-4 pt-2">
-                                    <li>
-                                        <a class="droplist d-flex align-items-center gap-2" href="#">
-                                            <i class="material-symbols-outlined mat-icon"> person_remove </i>
-                                            <span>Unfollow</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="droplist d-flex align-items-center gap-2" href="#">
-                                            <i class="material-symbols-outlined mat-icon"> hide_source </i>
-                                            <span>Hide</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="friends-list d-flex gap-3 align-items-center text-center">
-                            <ul class="d-flex align-items-center justify-content-center">
-                                <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                <li><img src="assets/images/avatar-4.png" alt="image"></li>
-                            </ul>
-                            <span class="smtxt d-center">30k Like</span>
                         </div>
                         <div class="btn-area mt-4">
-                            <button class="cmn-btn justify-content-center gap-1 w-100">
+                            <button onclick="window.location.href='/business/page/profile/{{business.id}}/'"
+                                class="cmn-btn justify-content-center gap-1 w-100">
                                 <i class="material-symbols-outlined mat-icon"> thumb_up </i>
-                                Liked
+                                View
                             </button>
                         </div>
                     </div>

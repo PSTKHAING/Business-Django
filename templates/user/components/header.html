@@ -230,15 +230,16 @@
                     <div class="single-item d-none d-lg-block profile-area position-relative">
                         <div class="profile-pic d-flex align-items-center">
                             <span class="avatar cmn-head active-status">
-                                <img class="avatar-img img48x48 max-un" src="{{user.profile.url}}"
-                                    alt="{{user.username}}">
+                                <img class="avatar-img img48x48 max-un"
+                                    src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}" alt="{{user.username}}">
                             </span>
                         </div>
                         <div class="main-area p-5 profile-content">
                             <div class="head-area">
                                 <div class="d-flex gap-3 align-items-center">
                                     <div class="avatar-item">
-                                        <img class="avatar-img img48x48 max-un" src="{{user.profile.url}}"
+                                        <img class="avatar-img img48x48 max-un"
+                                            src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
                                             alt="{{user.username}}">
                                     </div>
                                     <div class="text-area">

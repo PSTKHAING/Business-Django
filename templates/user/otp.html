@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP</title>
+    {% load static %}
+    {% include 'user/components/favicon.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'user/css/outerpage.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="left__section">
+            <div class="title gap">
+                <div class="text">
+                    <h1>OTP Confirmation</h1>
+                    <p>Fill in the details to get started with the best chat app!</p>
+                </div>
+                <div class="form__container">
+                    <form action="/otp/{{email}}/" method="POST">
+                        {% csrf_token %}
+                        <input placeholder="Enter Your OTP Code" class="form__input" required name="code" type="number">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="forgot__register" style="justify-content: center;">
+                    <p>Not Yet Received? <a href="/otp/{{email}}/resend/">Resend OTP</a></p>
+                </div>
+            </div>
+            <div class="right__section">
+                <img src="{% static 'user/images/login2.png' %}">
+            </div>
+        </div>
+
+
+
+</body>
+
+</html>

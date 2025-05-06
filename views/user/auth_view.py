@@ -42,7 +42,11 @@ def LogIn(request):
 
 def Register(request):
     if request.method == "GET":
-        return render(request, 'user/login_register.html')
+        countries = CountryModel.objects.all().order_by('-created_at')
+        context = {
+            "countries" : countries
+        }
+        return render(request, 'user/register.html',context)
 
     if request.method == "POST":
         username = request.POST.get('username')
@@ -56,6 +60,7 @@ def Register(request):
         user = UserModel.objects.create_user(
             username=username,
             email=email,
+            country_id = request.POST.get('country'),
             password=password,
         )
         user.save()
@@ -73,7 +78,7 @@ def Register(request):
 
         # Send email (renamed variable to `email_message`)
         email_message = EmailMultiAlternatives(
-            subject=f'Welcome {user.get_full_name}, Your OTP code is {otp_code}',
+            subject=f'Welcome {user.username}, Your OTP code is {otp_code}',
             body=text_content,
             from_email=settings.EMAIL_HOST_USER,
             to=[user.email],  
@@ -140,7 +145,7 @@ def ResendOTP(request, email):
 
             # Send email (renamed variable to `email_message`)
             email_message = EmailMultiAlternatives(
-                subject=f'Welcome {user.get_full_name}, Your OTP code is {otp_code}',
+                subject=f'Welcome {user.username}, Your OTP code is {otp_code}',
                 body=text_content,
                 from_email=settings.EMAIL_HOST_USER,
                 to=[user.email],  

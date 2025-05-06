@@ -1,3 +1,4 @@
+{% load static %}
 <div class="col-xxl-3 col-xl-3 col-lg-4 col-6 cus-z2">
     <div class="d-inline-block d-lg-none">
         <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
@@ -13,7 +14,9 @@
         </div>
         <div class="profile-pic d-flex gap-2 align-items-center">
             <div class="avatar position-relative">
-                <img class="avatar-img img48x48 max-un" src="{{user.profile.url}}" alt="{{user.username}}">
+                <img class="avatar-img img48x48 max-un"
+                    src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                    alt="{{user.username}}">
             </div>
             <div class="text-area">
                 <h6 class="m-0 mb-1"><a href="/profile/post/">{{user.username}}</a></h6>

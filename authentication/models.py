@@ -56,6 +56,9 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_business = models.BooleanField(default=False)
 
     profile = models.ImageField(upload_to="profile/",null=True,blank=True)
+    phone = models.CharField(max_length=200,null=True,blank=True)
+    bio = models.TextField(default=None,null=True,blank=True)
+    address = models.TextField(default=None,null=True,blank=True)
 
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(null=True, blank=True)
