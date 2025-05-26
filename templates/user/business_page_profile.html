@@ -12,8 +12,10 @@
                 <div class="top-area py-4 d-center flex-wrap gap-3 justify-content-between">
                     <div class="d-flex gap-3 align-items-center">
                         <div class="abs-avatar-item m-0">
+                            {% if current_business_page.profile %}
                             <img class="avatar-img max-un img100x100" src="{{current_business_page.profile.url}}"
                                 alt="{{current_business_page.name}}">
+                            {% endif %}
                         </div>
                         <div class="text-area text-start">
                             <h6 class="m-0 mb-1">{{current_business_page.name}}</h6>

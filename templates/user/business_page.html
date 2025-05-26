@@ -9,7 +9,7 @@
         <h6>Pages</h6>
     </div>
     <div class="top-area mb-5 d-center flex-wrap gap-3 justify-content-between">
-        <ul class="nav flex-wrap gap-2 tab-area" role="tablist">
+        <!-- <ul class="nav flex-wrap gap-2 tab-area" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link d-center active" id="liked-tab" data-bs-toggle="tab"
                     data-bs-target="#liked-tab-pane" type="button" role="tab" aria-controls="liked-tab-pane"
@@ -25,7 +25,7 @@
                     data-bs-target="#suggested-tab-pane" type="button" role="tab" aria-controls="suggested-tab-pane"
                     aria-selected="false">suggested pages</button>
             </li>
-        </ul>
+        </ul> -->
         <div class="btn-item">
             {% if request.user.is_business %}
             <a href="/business/page/profile/{{my_business_page.id}}/" class="cmn-btn gap-1">
@@ -44,24 +44,32 @@
             tabindex="0">
             <div class="row cus-mar friend-request">
                 {% for business in business %}
-                <div class="col-xl-4 col-sm-6 col-8">
+                <div class="col-sm-6 col-8">
                     <div class="single-box p-5">
                         <div class="avatar-area">
-                            <img class="avatar-img w-100 img250x250" src="{{business.profile.url}}"
-                                alt="{{business.name}}">
+                            {% if business.background_profile %}
+                            <img class="avatar-img w-100 img250x250" src="{{business.background_profile.url}}"
+                                alt="avatar">
+                            {% endif %}
                         </div>
                         <div class="head-area my-5 d-flex justify-content-between">
                             <div class="d-flex gap-3 align-items-center">
+                                <div class="avatar-item">
+                                    {% if business.profile %}
+                                    <img class="avatar-img max-un img57x57" src="{{business.profile.url}}" alt="avatar">
+                                    {% endif %}
+                                </div>
                                 <div class="text-area text-start">
                                     <h6 class="m-0 mb-1"><a
-                                            href="/business/page/profile/{{business.id}}/">{{business.name}}</a></h6>
+                                            href="/business/page/details/{{business.id}}/">{{business.name}}</a></h6>
+                                    <p class="mdtxt">{{business.type.name}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="btn-area mt-4">
-                            <button onclick="window.location.href='/business/page/profile/{{business.id}}/'"
+                            <button onclick="window.location.href='/business/page/details/{{business.id}}/'"
                                 class="cmn-btn justify-content-center gap-1 w-100">
-                                <i class="material-symbols-outlined mat-icon"> thumb_up </i>
+                                <i class="material-symbols-outlined mat-icon"> visibility </i>
                                 View
                             </button>
                         </div>

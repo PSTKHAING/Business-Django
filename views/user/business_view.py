@@ -29,6 +29,13 @@ def BusinessPageCreate(request):
         business.save()
         return redirect('/business/page/info/')
     
+def BusinessPageDetails(request,id):
+    business = BusinessModel.objects.get(id=id)
+    context = {
+        'business': business,
+        }
+    return render(request, 'user/business_page_details.html', context)
+    
 def BusinessPageInfo(request):
     business = BusinessModel.objects.get(owner_id =request.user.id)
     countries = CountryModel.objects.all().order_by('-created_at')

@@ -511,6 +511,24 @@ li {
   object-fit: cover;
 }
 
+.img250x250 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img266x110 {
+  width: 266px;
+  height: 110px;
+  object-fit: cover;
+}
+
+.img80x80 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
 .img100x100 {
   width: 100px;
   height: 100px;
@@ -523,13 +541,55 @@ li {
   object-fit: cover;
 }
 
+.img128x132 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img138x217 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
 .img140x140 {
   width: 140px;
   height: 140px;
   object-fit: cover;
 }
 
+.img180x187 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img184x200 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
 .img250x250 {
+  width: 250px;
+  height: 110px;
+  object-fit: cover;
+}
+
+.img266x110 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img266x200 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img286x208 {
   width: 250px;
   height: 250px;
   object-fit: cover;
@@ -549,6 +609,18 @@ li {
   object-position: top;
 }
 
+.img450x350 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img596x178 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
 .img596x350 {
   width: 596px;
   height: 350px;
@@ -562,6 +634,29 @@ li {
   object-fit: cover;
 }
 
+.img902x163 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img906x245 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img926x163 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.img1236x300 {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
 
 .resize-none {
   resize: none;

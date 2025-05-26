@@ -38,6 +38,9 @@ class BusinessModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
+    def __str__(self):
+        return f'{self.name}'
+
 class CommentModel(models.Model):
     post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)

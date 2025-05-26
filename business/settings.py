@@ -21,8 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOGIN_URL = '/login/'
 DASHBOARD_LOGIN_URL = '/khaing/'
 ADMIN_LOGIN_URL = 'khaing/'
-DOMAIN = 'http://127.0.0.1:8000'
-# DOMAIN = 'https://lkghetwgoivlkjdkshqyghb.polabilliards.com'
+# DOMAIN = 'http://127.0.0.1:8000'
+DOMAIN = 'https://pneumonoultramicroscopicsilicovolcanoconiosis.polabilliards.com'
 
 AUTH_USER_MODEL = 'authentication.UserModel'
 
@@ -36,7 +36,7 @@ SECRET_KEY = "django-insecure-sztcwb-b_*ya$t&#gn7g8*=l$*f5txb_jp4ttwlg*3^ndxx1=c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','pneumonoultramicroscopicsilicovolcanoconiosis.polabilliards.com']
 
 
 # Application definition

@@ -61,6 +61,7 @@ urlpatterns = [
     path('business/page/your/page/<int:id>/', business_view.BusinessPageYourPage),
     path('business/page/privacy/<int:id>/', business_view.BusinessPagePrivacy),
     path('business/page/setting/<int:id>/', business_view.BusinessPageSetting),
-    path('business/page/profile/update/<int:id>/',business_view.BusinessPageProfileUpdate)
+    path('business/page/profile/update/<int:id>/',business_view.BusinessPageProfileUpdate),
+    path('business/page/details/<int:id>/',business_view.BusinessPageDetails),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

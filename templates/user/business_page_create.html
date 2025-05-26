@@ -24,7 +24,9 @@
             </div>
             <div class="profile-picture d-flex gap-2 mb-5 align-items-center">
                 <div class="avatar position-relative">
+                    {% if user.profile %}
                     <img class="avatar-img max-un img48x48" src="{{user.profile.url}}" alt="{{user.username}}">
+                    {% endif %}
                 </div>
                 <div class="text-area">
                     <h6 class="m-0 mb-1"><a href="/profile/post/">{{user.username}}</a></h6>

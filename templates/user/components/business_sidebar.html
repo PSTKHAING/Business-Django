@@ -15,8 +15,10 @@
         <div class="profile-item">
             <div class="profile-item d-flex gap-3 align-items-center">
                 <div class="avatar position-relative">
+                    {% if my_business_page.owner.profile %}
                     <img class="avatar-img max-un img50x50 rounded-10" src="{{my_business_page.owner.profile.url}}"
                         alt="{{my_business_page.owner.username}}">
+                    {% endif %}
                 </div>
                 <div class="text-area">
                     <h6 class="m-0 mb-1">{{my_business_page.owner.username}}</h6>

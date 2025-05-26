@@ -28,8 +28,9 @@
                     <input placeholder="Enter Your Name" type="text" name="username" class="form__input">
                     <input placeholder="Enter Your Email" type="email" name="email" class="form__input">
                     <select class="form__input" name="country">
+                        <option value="">-- Choose a country --</option>
                         {% for country in countries %}
-                        <option value="{{country.id}}">{{country.name}}</option>
+                        <option value="{{country.id}}" style="text-transform: capitalize;">{{country.name}}</option>
                         {% endfor %}
                     </select>
                     <input class="form__input" placeholder="Enter Your Password" name="password" type="password">
