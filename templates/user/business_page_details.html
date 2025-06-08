@@ -1,26 +1,31 @@
 {% extends 'user/components/base_no_right.html' %}
 
 {% block title %}{{business.name}}{% endblock %}
-
+{% load static %}
 {% block body %}
+{% load humanize %}
 
 <div class="col-xl-9 col-lg-8">
     <div class="banner-area pages-create mb-5">
         <div class="single-box p-5">
             <div class="avatar-area">
-                <img class="avatar-img w-100" src="assets/images/page-cover-img.png" alt="image">
+                <img class="avatar-img w-100 img926x163"
+                    src="{% if business.background_profile %}{{business.background_profile.url}}{% else %}{% static 'user/images/page-cover-img.png' %}{% endif %}"
+                    alt="{{business.name}}">
             </div>
             <div class="top-area py-4 d-center flex-wrap gap-3 justify-content-between">
                 <div class="d-flex gap-3 align-items-center">
                     <div class="avatar-item p">
-                        <img class="avatar-img max-un" src="assets/images/page-avatar-1.png" alt="avatar">
+                        <img class="avatar-img max-un img57x57"
+                            src="{% if business.profile %}{{business.profile.url}}{% else %}{% static 'user/images/page-avatar-1.png' %}{% endif %}"
+                            alt="{{business.name}}">
                     </div>
                     <div class="text-area text-start">
-                        <h6 class="m-0 mb-1">Travel Moon</h6>
-                        <p class="mdtxt">Travel-30k Liked</p>
+                        <h6 class="m-0 mb-1">{{business.name}}</h6>
+                        <p class="mdtxt">{{business.type.name}}</p>
                     </div>
                 </div>
-                <div class="btn-item d-center gap-3">
+                <!-- <div class="btn-item d-center gap-3">
                     <a href="#" class="cmn-btn gap-1">
                         Liked
                     </a>
@@ -48,9 +53,9 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
             </div>
-            <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
+            <!-- <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
                 <ul class="d-flex align-items-center justify-content-center">
                     <li><img src="{% static 'user/images/avatar-3.png' %}" alt="image"></li>
                     <li><img src="{% static 'user/images/avatar-2.png' %}" alt="image"></li>
@@ -63,7 +68,7 @@
                     <li><img src="{% static 'user/images/avatar-10.png' %}" alt="image"></li>
                 </ul>
                 <span class="mdtxt d-center">Rezeka, Martiola, Larmjio, and 10+ more</span>
-            </div>
+            </div> -->
             <div class="page-details">
                 <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -100,241 +105,122 @@
             tabindex="0">
             <div class="row">
                 <div class="col-xxl-8 col-xl-8 col-lg-12 d-flex flex-column gap-7">
-                    <div class="post-item d-flex flex-column gap-5 gap-md-7">
-                        <div class="post-single-box p-3 p-sm-5">
-                            <div class="top-area pb-5">
-                                <div class="profile-area d-center justify-content-between">
-                                    <div class="avatar-item d-flex gap-3 align-items-center">
-                                        <div class="avatar position-relative">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-1.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-area">
-                                            <h6 class="m-0"><a href="public-profile-post.html">Lori
-                                                    Cortez</a></h6>
-                                            <span class="mdtxt status">Active</span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        bookmark_add </i>
-                                                    <span>Saved Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        person_remove </i>
-                                                    <span>Unfollow</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> lock
-                                                    </i>
-                                                    <span>Block</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Post</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="py-4">
-                                    <p class="description">I created Roughly plugin to sketch crafted
-                                        hand-drawn elements which can be used to any usage
-                                        (diagrams/flows/decoration/etc)</p>
-                                </div>
-                                <div class="post-img">
-                                    <img src="assets/images/post-img-1.png" class="w-100" alt="image">
-                                </div>
-                            </div>
-                            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
-                                <div class="friends-list d-flex gap-3 align-items-center text-center">
-                                    <ul class="d-flex align-items-center justify-content-center">
-                                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
-                                        <li><span class="mdtxt d-center">8+</span></li>
-                                    </ul>
-                                </div>
-                                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                                    <button class="mdtxt">4 Comments</button>
-                                    <button class="mdtxt">1 Shares</button>
-                                </div>
-                            </div>
-                            <div
-                                class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
-                                    Like
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> chat </i>
-                                    Comment
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                    Share
-                                </button>
-                            </div>
-                            <form action="#">
-                                <div class="d-flex mt-5 gap-3">
-                                    <div class="profile-box d-none d-xxl-block">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                                        <input placeholder="Write a comment..">
-                                        <div class="file-input d-flex gap-1 gap-md-2">
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            gif_box </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            perm_media </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <span class="mood-area">
-                                                <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                    mood </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-area d-flex">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="share-post d-flex gap-3 gap-sm-5 p-3 p-sm-5">
+                        <div class="profile-box">
+                            <a href="/business/page/details/{{business.id}}/">
+                                <img src="{% if business.profile %}{{business.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                    style="border-radius: 10px;" class="max-un img50x50" alt="{{user.username}}">
+                            </a>
                         </div>
+                        <form action="#" class="w-100 position-relative">
+                            <textarea onclick="window.location.href='/post/create/'" readonly cols="10"
+                                class="resize-none" rows="2" placeholder="Business Page Post"></textarea>
+                        </form>
+                    </div>
+                    <div class="post-item d-flex flex-column gap-5 gap-md-7">
+                        {% for post in posts %}
                         <div class="post-single-box p-3 p-sm-5">
                             <div class="top-area pb-5">
                                 <div class="profile-area d-center justify-content-between">
                                     <div class="avatar-item d-flex gap-3 align-items-center">
                                         <div class="avatar position-relative">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-1.png"
-                                                alt="avatar">
+                                            <img class="avatar-img max-un img48x48" style="border-radius: 10px;"
+                                                src="{% if post.author.profile %}{{post.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                                alt="{{post.author.username}}">
                                         </div>
                                         <div class="info-area">
-                                            <h6 class="m-0"><a href="public-profile-post.html">Lori
-                                                    Cortez</a></h6>
-                                            <span class="mdtxt status">Active</span>
+                                            <h6 class="m-0"><a
+                                                    href="/profile/post/{{post.author.id}}/">{{post.author.username}}</a>
+                                            </h6>
+                                            <span class="mdtxt status">{{post.created_at | naturaltime }}</span>
                                         </div>
-                                    </div>
-                                    <div class="btn-group cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        bookmark_add </i>
-                                                    <span>Saved Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        person_remove </i>
-                                                    <span>Unfollow</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> lock
-                                                    </i>
-                                                    <span>Block</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Post</span>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                                 <div class="py-4">
-                                    <p class="description">I created Roughly plugin to sketch crafted
-                                        hand-drawn elements which can be used to any usage
-                                        (diagrams/flows/decoration/etc)</p>
+                                    <p class="description">{{post.content}}</p>
                                 </div>
+
+                                {% if post.media.all|length == 1 %}
+                                {% for media in post.media.all %}
+                                <div class="post-img">
+                                    <img src="{{media.file.url}}" class="w-100" alt="image">
+                                </div>
+                                {% endfor %}
+                                {% elif post.media.all|length == 2 %}
                                 <div class="post-img  d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    {% for media in post.media.all %}
                                     <div class="single">
-                                        <img src="assets/images/post-img-2.png" alt="image">
+                                        <img src="{{media.file.url}}" class="w-100" alt="image">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% elif post.media.all|length == 3 %}
+                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    {% for media in post.media.all %}
+                                    {% if forloop.first %}
+                                    <div class="single">
+                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
                                     </div>
                                     <div class="single d-grid gap-3">
-                                        <img src="assets/images/post-img-3.png" alt="image">
-                                        <img src="assets/images/post-img-4.png" alt="image">
+                                        {% elif forloop.counter == 2 or forloop.last %}
+                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
+                                        {% if forloop.last %}
                                     </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
                                 </div>
+                                {% elif post.media.all|length == 4 %}
+                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    {% for media in post.media.all %}
+                                    {% if forloop.first %}
+                                    <div class="single d-grid gap-3">
+                                        {% endif %}
+
+                                        {% if forloop.counter == 1 or forloop.counter == 2 %}
+                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
+                                        {% if forloop.counter == 2 %}
+                                    </div>
+                                    {% endif %}
+                                    {% elif forloop.counter == 3 %}
+                                    <div class="single d-grid gap-3">
+                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
+                                        {% elif forloop.counter == 4 %}
+                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                             <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
                                 <div class="friends-list d-flex gap-3 align-items-center text-center">
                                     <ul class="d-flex align-items-center justify-content-center">
-                                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
+                                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48"
+                                                alt="image"></li>
+                                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48"
+                                                alt="image"></li>
+                                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48"
+                                                alt="image"></li>
                                         <li><span class="mdtxt d-center">8+</span></li>
                                     </ul>
                                 </div>
                                 <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                                    <button class="mdtxt">4 Comments</button>
+                                    <button type="button" class="mdtxt"
+                                        onclick="window.location.href='/post/details/{{post.id}}/'">4
+                                        Comments</button>
                                     <button class="mdtxt">1 Shares</button>
                                 </div>
                             </div>
                             <div
                                 class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
+                                <button class="d-center gap-1 gap-sm-2 mdtxt reaction" data-post-id="{{ post.id }}">
+                                    <i
+                                        class="{% if request.user in post.reaction.all %}fas fa-heart filled{% else %}far fa-heart{% endif %}"></i>
                                     Like
                                 </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                                <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
+                                    onclick="window.location.href='/post/details/{{post.id}}/'">
                                     <i class="material-symbols-outlined mat-icon"> chat </i>
                                     Comment
                                 </button>
@@ -343,858 +229,59 @@
                                     Share
                                 </button>
                             </div>
-                            <form action="#">
+                            <form action="/post/comment/{{post.id}}/index/" method="POST">
+                                {% csrf_token %}
                                 <div class="d-flex mt-5 gap-3">
                                     <div class="profile-box d-none d-xxl-block">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
+                                        <a href="/profile/post/"><img
+                                                src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                                class="max-un img50x50 rounded-10" alt="{{user.username}}"></a>
                                     </div>
                                     <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                                        <input placeholder="Write a comment..">
-                                        <div class="file-input d-flex gap-1 gap-md-2">
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            gif_box </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            perm_media </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <span class="mood-area">
-                                                <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                    mood </span>
-                                            </span>
-                                        </div>
+                                        <input placeholder="Write a comment.." name="content">
                                     </div>
                                     <div class="btn-area d-flex">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="comments-area mt-5">
-                                <div class="single-comment-area ms-1 ms-xxl-15">
-                                    <div class="parent-comment d-flex gap-2 gap-sm-4">
-                                        <div class="avatar-item d-center align-items-baseline">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-3.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-item">
-                                            <div
-                                                class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                <div class="title-area">
-                                                    <h6 class="m-0 mb-3"><a href="public-profile-post.html">Lori
-                                                            Cortez</a></h6>
-                                                    <p class="mdtxt">The only way to solve the problem
-                                                        is to code for the hardware directly</p>
-                                                </div>
-                                                <div class="btn-group dropend cus-dropdown">
-                                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class="material-symbols-outlined fs-xxl m-0">
-                                                            more_horiz </i>
-                                                    </button>
-                                                    <ul class="dropdown-menu p-4 pt-2">
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    hide_source </i>
-                                                                <span>Hide Comments</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    flag </i>
-                                                                <span>Report Comments</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <ul class="like-share d-flex gap-6 mt-2">
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Like</button>
-                                                </li>
-                                                <li class="d-center flex-column">
-                                                    <button class="mdtxt reply-btn">Reply</button>
-                                                </li>
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Share</button>
-                                                </li>
-                                            </ul>
-                                            <form action="#" class="comment-form">
-                                                <div class="d-flex gap-3">
-                                                    <input placeholder="Write a comment.." class="py-3">
-                                                    <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                        <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                            near_me </i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="single-comment-area comment-item-nested mt-4 mt-sm-7 ms-13 ms-sm-15">
-                                        <div class="d-flex gap-2 gap-sm-4 align-items-baseline">
-                                            <div class="avatar-item">
-                                                <img class="avatar-img max-un" src="assets/images/avatar-4.png"
-                                                    alt="avatar">
-                                            </div>
-                                            <div class="info-item">
-                                                <div
-                                                    class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                    <div class="title-area">
-                                                        <h6 class="m-0 mb-3"><a href="public-profile-post.html">Alex</a>
-                                                        </h6>
-                                                        <p class="mdtxt">The only way to solve the</p>
-                                                    </div>
-                                                    <div class="btn-group dropend cus-dropdown">
-                                                        <button type="button" class="dropdown-btn"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="material-symbols-outlined fs-xxl m-0">
-                                                                more_horiz </i>
-                                                        </button>
-                                                        <ul class="dropdown-menu p-4 pt-2">
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        hide_source </i>
-                                                                    <span>Hide Comments</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        flag </i>
-                                                                    <span>Report Comments</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <ul class="like-share d-flex gap-6 mt-2">
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Like</button>
-                                                    </li>
-                                                    <li class="d-center flex-column">
-                                                        <button class="mdtxt reply-btn">Reply</button>
-                                                    </li>
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Share</button>
-                                                    </li>
-                                                </ul>
-                                                <form action="#" class="comment-form">
-                                                    <div class="d-flex gap-3">
-                                                        <input placeholder="Write a comment.." class="py-3">
-                                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                                near_me </i>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-single-box p-3 p-sm-5">
-                            <div class="top-area pb-5">
-                                <div class="profile-area d-center justify-content-between">
-                                    <div class="avatar-item d-flex gap-3 align-items-center">
-                                        <div class="avatar-item">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-5.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-area">
-                                            <h6 class="m-0"><a href="public-profile-post.html">Loprayos</a></h6>
-                                            <span class="mdtxt status">20m Ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        bookmark_add </i>
-                                                    <span>Saved Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        person_remove </i>
-                                                    <span>Unfollow</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> lock
-                                                    </i>
-                                                    <span>Block</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Post</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="py-4">
-                                    <p class="description">Nam ornare a nibh id sagittis. Vestibulum nec
-                                        molestie urna, eget convallis mi. Vestibulum rhoncus ligula eget
-                                        sem sollicitudin interdum. Aliquam massa lectus, fringilla non
-                                        diam ut, laoreet convallis risus. Curabitur at metus imperdiet,
-                                        pellentesque ligula vel,</p>
-                                </div>
-                            </div>
-                            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
-                                <div class="friends-list d-flex gap-3 align-items-center text-center">
-                                    <ul class="d-flex align-items-center justify-content-center">
-                                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
-                                        <li><span class="mdtxt d-center">8+</span></li>
-                                    </ul>
-                                </div>
-                                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                                    <button class="mdtxt">4 Comments</button>
-                                    <button class="mdtxt">1 Shares</button>
-                                </div>
-                            </div>
-                            <div
-                                class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
-                                    Like
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> chat </i>
-                                    Comment
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                    Share
-                                </button>
-                            </div>
-                            <form action="#">
-                                <div class="d-flex mt-5 gap-3">
-                                    <div class="profile-box d-none d-xxl-block">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                                        <input placeholder="Write a comment..">
-                                        <div class="file-input d-flex gap-1 gap-md-2">
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            gif_box </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            perm_media </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <span class="mood-area">
-                                                <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                    mood </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-area d-flex">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="comments-area mt-5">
-                                <div class="single-comment-area ms-1 ms-xxl-15">
-                                    <div class="parent-comment d-flex gap-2 gap-sm-4">
-                                        <div class="avatar-item d-center align-items-baseline">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-3.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-item active">
-                                            <div
-                                                class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                <div class="title-area">
-                                                    <h6 class="m-0 mb-3"><a href="public-profile-post.html">Lori
-                                                            Cortez</a></h6>
-                                                    <p class="mdtxt">The only way to solve the problem
-                                                        is to code for the hardware directly</p>
-                                                </div>
-                                                <div class="btn-group dropend cus-dropdown">
-                                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class="material-symbols-outlined fs-xxl m-0">
-                                                            more_horiz </i>
-                                                    </button>
-                                                    <ul class="dropdown-menu p-4 pt-2">
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    hide_source </i>
-                                                                <span>Hide Comments</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    flag </i>
-                                                                <span>Report Comments</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <ul class="like-share d-flex gap-6 mt-2">
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Like</button>
-                                                </li>
-                                                <li class="d-center flex-column">
-                                                    <button class="mdtxt reply-btn">Reply</button>
-                                                </li>
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Share</button>
-                                                </li>
-                                            </ul>
-                                            <form action="#" class="comment-form">
-                                                <div class="d-flex gap-3">
-                                                    <input placeholder="Write a comment.." class="py-3">
-                                                    <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                        <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                            near_me </i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="sibling-comment comment-item-nested single-comment-area mt-7 ms-13 ms-sm-15">
-                                        <div class="d-flex gap-2 gap-sm-4 align-items-baseline">
-                                            <div class="avatar-item">
-                                                <img class="avatar-img max-un" src="assets/images/avatar-4.png"
-                                                    alt="avatar">
-                                            </div>
-                                            <div class="info-item">
-                                                <div
-                                                    class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                    <div class="title-area">
-                                                        <h6 class="m-0 mb-3"><a
-                                                                href="public-profile-post.html">Alexa</a>
-                                                        </h6>
-                                                        <p class="mdtxt">The only way to solve the</p>
-                                                    </div>
-                                                    <div class="btn-group dropend cus-dropdown">
-                                                        <button type="button" class="dropdown-btn"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="material-symbols-outlined fs-xxl m-0">
-                                                                more_horiz </i>
-                                                        </button>
-                                                        <ul class="dropdown-menu p-4 pt-2">
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        hide_source </i>
-                                                                    <span>Hide Comments</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        flag </i>
-                                                                    <span>Report Comments</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <ul class="like-share d-flex gap-6 mt-2">
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Like</button>
-                                                    </li>
-                                                    <li class="d-center flex-column">
-                                                        <button class="mdtxt reply-btn">Reply</button>
-                                                    </li>
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Share</button>
-                                                    </li>
-                                                </ul>
-                                                <form action="#" class="comment-form">
-                                                    <div class="d-flex gap-3">
-                                                        <input placeholder="Write a comment.." class="py-3">
-                                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                                near_me </i>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single-comment-area comment-item-nested mt-7 ms-13 ms-sm-15">
-                                        <div class="d-flex gap-2 gap-sm-4 align-items-baseline">
-                                            <div class="avatar-item">
-                                                <img class="avatar-img max-un" src="assets/images/avatar-7.png"
-                                                    alt="avatar">
-                                            </div>
-                                            <div class="info-item">
-                                                <div
-                                                    class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                    <div class="title-area">
-                                                        <h6 class="m-0 mb-3"><a
-                                                                href="public-profile-post.html">Haplika</a>
-                                                        </h6>
-                                                        <p class="mdtxt">The only way to solve the</p>
-                                                    </div>
-                                                    <div class="btn-group dropend cus-dropdown">
-                                                        <button type="button" class="dropdown-btn"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <i class="material-symbols-outlined fs-xxl m-0">
-                                                                more_horiz </i>
-                                                        </button>
-                                                        <ul class="dropdown-menu p-4 pt-2">
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        hide_source </i>
-                                                                    <span>Hide Comments</span>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="droplist d-flex align-items-center gap-2"
-                                                                    href="#">
-                                                                    <i class="material-symbols-outlined mat-icon">
-                                                                        flag </i>
-                                                                    <span>Report Comments</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <ul class="like-share d-flex gap-6 mt-2">
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Like</button>
-                                                    </li>
-                                                    <li class="d-center flex-column">
-                                                        <button class="mdtxt reply-btn">Reply</button>
-                                                    </li>
-                                                    <li class="d-center">
-                                                        <button class="mdtxt">Share</button>
-                                                    </li>
-                                                </ul>
-                                                <form action="#" class="comment-form">
-                                                    <div class="d-flex gap-3">
-                                                        <input placeholder="Write a comment.." class="py-3">
-                                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                                near_me </i>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="comments-area mt-5">
-                                <div class="single-comment-area ms-1 ms-xxl-15">
-                                    <div class="d-flex gap-4">
-                                        <div class="avatar-item d-center align-items-baseline">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-3.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-item w-100">
-                                            <div
-                                                class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
-                                                <div class="title-area">
-                                                    <h6 class="m-0 mb-3"><a href="public-profile-post.html">Marlio</a>
-                                                    </h6>
-                                                    <div class="post-img">
-                                                        <img src="assets/images/icon/emoji-love-2.png" alt="icon">
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group dropend cus-dropdown">
-                                                    <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class="material-symbols-outlined fs-xxl m-0">
-                                                            more_horiz </i>
-                                                    </button>
-                                                    <ul class="dropdown-menu p-4 pt-2">
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    hide_source </i>
-                                                                <span>Hide Comments</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="droplist d-flex align-items-center gap-2"
-                                                                href="#">
-                                                                <i class="material-symbols-outlined mat-icon">
-                                                                    flag </i>
-                                                                <span>Report Comments</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <ul class="like-share d-flex gap-6 mt-2">
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Like</button>
-                                                </li>
-                                                <li class="d-center flex-column">
-                                                    <button class="mdtxt reply-btn">Reply</button>
-                                                </li>
-                                                <li class="d-center">
-                                                    <button class="mdtxt">Share</button>
-                                                </li>
-                                            </ul>
-                                            <form action="#" class="comment-form">
-                                                <div class="d-flex gap-3">
-                                                    <input placeholder="Write a comment.." class="py-3">
-                                                    <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                                        <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                            near_me </i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="post-single-box p-3 p-sm-5">
-                            <div class="top-area pb-5">
-                                <div class="profile-area d-center justify-content-between">
-                                    <div class="avatar-item d-flex gap-3 align-items-center">
-                                        <div class="avatar position-relative">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-1.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-area">
-                                            <h6 class="m-0"><a href="public-profile-post.html">Lori
-                                                    Cortez</a></h6>
-                                            <span class="mdtxt status">Active</span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        bookmark_add </i>
-                                                    <span>Saved Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        person_remove </i>
-                                                    <span>Unfollow</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> lock
-                                                    </i>
-                                                    <span>Block</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Post</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="py-4">
-                                    <p class="description">My Travel Video</p>
-                                    <p class="hastag d-flex gap-2">
-                                        <a href="#">#Viral</a>
-                                        <a href="#">#travel</a>
-                                    </p>
-                                </div>
-                                <div class="post-img video-item">
-                                    <div class="plyr__video-embed player">
-                                        <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
-                                <div class="friends-list d-flex gap-3 align-items-center text-center">
-                                    <ul class="d-flex align-items-center justify-content-center">
-                                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
-                                        <li><span class="mdtxt d-center">8+</span></li>
-                                    </ul>
-                                </div>
-                                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                                    <button class="mdtxt">4 Comments</button>
-                                    <button class="mdtxt">1 Shares</button>
-                                </div>
-                            </div>
-                            <div
-                                class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
-                                    Like
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> chat </i>
-                                    Comment
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                    Share
-                                </button>
-                            </div>
-                            <form action="#">
-                                <div class="d-flex mt-5 gap-3">
-                                    <div class="profile-box d-none d-xxl-block">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                                        <input placeholder="Write a comment..">
-                                        <div class="file-input d-flex gap-1 gap-md-2">
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            gif_box </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            perm_media </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <span class="mood-area">
-                                                <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                    mood </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-area d-flex">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
-                        <div class="post-single-box p-3 p-sm-5">
-                            <div class="top-area pb-5">
-                                <div class="profile-area d-center justify-content-between">
-                                    <div class="avatar-item d-flex gap-3 align-items-center">
-                                        <div class="avatar position-relative">
-                                            <img class="avatar-img max-un" src="assets/images/avatar-1.png"
-                                                alt="avatar">
-                                        </div>
-                                        <div class="info-area">
-                                            <h6 class="m-0"><a href="public-profile-post.html">Lori
-                                                    Cortez</a></h6>
-                                            <span class="mdtxt status">Active</span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group cus-dropdown">
-                                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz
-                                            </i>
-                                        </button>
-                                        <ul class="dropdown-menu p-4 pt-2">
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        bookmark_add </i>
-                                                    <span>Saved Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        person_remove </i>
-                                                    <span>Unfollow</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon">
-                                                        hide_source </i>
-                                                    <span>Hide Post</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> lock
-                                                    </i>
-                                                    <span>Block</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="droplist d-flex align-items-center gap-2" href="#">
-                                                    <i class="material-symbols-outlined mat-icon"> flag
-                                                    </i>
-                                                    <span>Report Post</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="py-4">
-                                    <p class="description">I created Roughly plugin to sketch crafted
-                                        hand-drawn elements which can be used to any usage
-                                        (diagrams/flows/decoration/etc)</p>
-                                </div>
-                                <div class="post-img">
-                                    <img src="assets/images/post-img-1.png" class="w-100" alt="image">
-                                </div>
-                            </div>
-                            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
-                                <div class="friends-list d-flex gap-3 align-items-center text-center">
-                                    <ul class="d-flex align-items-center justify-content-center">
-                                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
-                                        <li><span class="mdtxt d-center">8+</span></li>
-                                    </ul>
-                                </div>
-                                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
-                                    <button class="mdtxt">4 Comments</button>
-                                    <button class="mdtxt">1 Shares</button>
-                                </div>
-                            </div>
-                            <div
-                                class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> favorite </i>
-                                    Like
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> chat </i>
-                                    Comment
-                                </button>
-                                <button class="d-center gap-1 gap-sm-2 mdtxt">
-                                    <i class="material-symbols-outlined mat-icon"> share </i>
-                                    Share
-                                </button>
-                            </div>
-                            <form action="#">
-                                <div class="d-flex mt-5 gap-3">
-                                    <div class="profile-box d-none d-xxl-block">
-                                        <a href="#"><img src="assets/images/add-post-avatar.png" class="max-un"
-                                                alt="icon"></a>
-                                    </div>
-                                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
-                                        <input placeholder="Write a comment..">
-                                        <div class="file-input d-flex gap-1 gap-md-2">
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            gif_box </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="file-upload">
-                                                <label class="file">
-                                                    <input type="file">
-                                                    <span class="file-custom border-0 d-grid text-center">
-                                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                            perm_media </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <span class="mood-area">
-                                                <span class="material-symbols-outlined mat-icon m-0 xxltxt">
-                                                    mood </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="btn-area d-flex">
-                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
-                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl">
-                                                near_me </i>
+                                        <button class="cmn-btn px-2 px-sm-5 px-lg-6" type="submit">
+                                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl"> near_me </i>
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        {% endfor %}
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Add an event listener to each like button
+                                document.querySelectorAll('.like-comment-share .reaction').forEach(button => {
+                                    button.addEventListener('click', function () {
+                                        const postId = this.dataset.postId;
+                                        const url = `/post/reaction/${postId}/`;
+                                        const heartIcon = this.querySelector('i'); // Get the heart icon
+
+                                        // Send the POST request
+                                        fetch(url, {
+                                            method: 'POST',
+                                            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                // Change the icon based on whether the post is liked or not
+                                                if (heartIcon.classList.contains('fas')) {
+                                                    heartIcon.classList.remove('fas', 'fa-heart', 'filled');
+                                                    heartIcon.classList.add('far', 'fa-heart');
+                                                } else {
+                                                    heartIcon.classList.remove('far', 'fa-heart');
+                                                    heartIcon.classList.add('fas', 'fa-heart', 'filled');
+                                                }
+                                            })
+                                            .catch(error => console.log('Error:', error));
+                                    });
+                                });
+                            });
+
+
+                        </script>
                     </div>
                 </div>
                 <div class="col-xxl-4 col-xl-4 col-lg-10 mt-5 mt-xl-0">
@@ -1208,26 +295,24 @@
                                     </h6>
                                 </div>
                                 <ul class="d-grid gap-2 mt-5">
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="material-symbols-outlined mat-icon"> schedule </i>
-                                        <span class="mdtxt">Page- Travel Agency</span>
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="material-symbols-outlined mat-icon"> language </i>
-                                        <span class="mdtxt">Public</span>
-                                    </li>
+                                    {% if business.email %}
                                     <li class="d-flex align-items-center gap-2">
                                         <i class="material-symbols-outlined mat-icon"> flag </i>
-                                        <span class="mdtxt link">test@mail.com</span>
+                                        <span class="mdtxt link">{{business.email}}</span>
                                     </li>
+                                    {% endif %}
+                                    {% if business.website %}
                                     <li class="d-flex align-items-center gap-2">
                                         <i class="material-symbols-outlined mat-icon"> language </i>
-                                        <span class="mdtxt link">www.wisoky.com</span>
+                                        <span class="mdtxt link">{{business.website}}</span>
                                     </li>
+                                    {% endif %}
+                                    {% if business.phone %}
                                     <li class="d-flex align-items-center gap-2">
                                         <i class="material-symbols-outlined mat-icon"> call </i>
-                                        <span class="mdtxt">(316) 555-0116</span>
+                                        <span class="mdtxt">{{business.phone}}</span>
                                     </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                             <div class="sidebar-area p-5">
@@ -1236,11 +321,8 @@
                                         About
                                     </h6>
                                 </div>
-                                <p class="mdtxt descript">Lorem ipsum dolor sit amet cons all Ofectetur.
-                                    Pellentesque ipsum necat congue pretium cursus orci. It Commodo
-                                    donec tellus lacus pellentesque sagittis habitant quam amet
-                                    praesent. </p>
-                                <ul class="d-grid gap-2 mt-5">
+                                <p class="mdtxt descript">{{business.bio}}</p>
+                                <!-- <ul class="d-grid gap-2 mt-5">
                                     <li class="d-flex align-items-center gap-2">
                                         <i class="material-symbols-outlined mat-icon"> schedule </i>
                                         <span class="mdtxt">Always</span>
@@ -1253,7 +335,7 @@
                                         <i class="material-symbols-outlined mat-icon"> language </i>
                                         <span class="mdtxt">Public</span>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                             <div class="sidebar-area post-item p-5">
                                 <div class="mb-3">
@@ -1264,12 +346,12 @@
                                 <div class="post-single-box">
                                     <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
                                         <div class="single d-grid gap-3">
-                                            <img src="assets/images/post-img-6.png" alt="image">
-                                            <img src="assets/images/post-img-5.png" alt="image">
+                                            <img src="{% static 'user/images/post-img-6.png' %}" alt="image">
+                                            <img src="{% static 'user/images/post-img-5.png' %}" alt="image">
                                         </div>
                                         <div class="single d-grid gap-3">
-                                            <img src="assets/images/post-img-6.png" alt="image">
-                                            <img src="assets/images/post-img-5.png" alt="image">
+                                            <img src="{% static 'user/images/post-img-6.png' %}" alt="image">
+                                            <img src="{% static 'user/images/post-img-5.png' %}" alt="image">
                                         </div>
                                     </div>
                                 </div>

@@ -524,8 +524,8 @@ li {
 }
 
 .img80x80 {
-  width: 250px;
-  height: 250px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
 }
 
@@ -542,14 +542,14 @@ li {
 }
 
 .img128x132 {
-  width: 250px;
-  height: 250px;
+  width: 128px;
+  height: 132px;
   object-fit: cover;
 }
 
 .img138x217 {
-  width: 250px;
-  height: 250px;
+  width: 138px;
+  height: 217px;
   object-fit: cover;
 }
 
@@ -560,38 +560,38 @@ li {
 }
 
 .img180x187 {
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 187px;
   object-fit: cover;
 }
 
 .img184x200 {
-  width: 250px;
-  height: 250px;
+  width: 184px;
+  height: 200px;
   object-fit: cover;
 }
 
 .img250x250 {
   width: 250px;
-  height: 110px;
+  height: 250px;
   object-fit: cover;
 }
 
 .img266x110 {
-  width: 250px;
-  height: 250px;
+  width: 266px;
+  height: 110px;
   object-fit: cover;
 }
 
 .img266x200 {
-  width: 250px;
-  height: 250px;
+  width: 266px;
+  height: 200px;
   object-fit: cover;
 }
 
 .img286x208 {
-  width: 250px;
-  height: 250px;
+  width: 286px;
+  height: 208px;
   object-fit: cover;
 }
 
@@ -610,14 +610,14 @@ li {
 }
 
 .img450x350 {
-  width: 250px;
-  height: 250px;
+  width: 450px;
+  height: 350px;
   object-fit: cover;
 }
 
 .img596x178 {
-  width: 250px;
-  height: 250px;
+  width: 596px;
+  height: 178px;
   object-fit: cover;
 }
 
@@ -635,26 +635,26 @@ li {
 }
 
 .img902x163 {
-  width: 250px;
-  height: 250px;
+  width: 902px;
+  height: 163px;
   object-fit: cover;
 }
 
 .img906x245 {
-  width: 250px;
-  height: 250px;
+  width: 906px;
+  height: 245px;
   object-fit: cover;
 }
 
 .img926x163 {
-  width: 250px;
-  height: 250px;
+  width: 926px;
+  height: 163px;
   object-fit: cover;
 }
 
 .img1236x300 {
-  width: 250px;
-  height: 250px;
+  width: 1236px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -1129,6 +1129,7 @@ li {
   line-height: 18px;
   padding: 4px 5px;
   min-height: initial;
+  text-transform: capitalize;
 }
 
 .nice-select .option:hover,
@@ -3032,17 +3033,19 @@ li {
 
   .main-content .profile-sidebar {
     position: absolute;
-    transform: translateX(-200px);
+    /* transform: translateX(-200px); */
+    left:-100%;
     top: initial;
     z-index: 2;
-    opacity: 0;
+    /* opacity: 0; */
     min-width: 290px;
     transition: 0.3s;
   }
 
   .main-content .profile-sidebar.active {
-    transform: translateX(0px);
-    opacity: 1;
+    /* transform: translateX(0px); */
+    /* opacity: 1; */
+    left: 0;
   }
 
   .main-content .profile-sidebar.max-width {

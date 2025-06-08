@@ -114,6 +114,8 @@ def OTP(request, email):
             entered_code = code.strip()
 
             if entered_code == str(otp_code):
+                user.is_active = True
+                user.save()
                 login(request,user)
                 otp_entry.delete()
                 messages.success(request, "OTP verified successfully!")

@@ -1,7 +1,7 @@
 {% extends 'user/components/base.html' %}
 
 {% block title %}Post Details{% endblock %}
-
+{% load static %}
 {% block body %}
 
 {% load humanize %}
@@ -12,8 +12,9 @@
                 <div class="profile-area d-center justify-content-between">
                     <div class="avatar-item d-flex gap-3 align-items-center">
                         <div class="avatar-item">
-                            <img class="avatar-img max-un img50x50" src="{{post.author.profile.url}}"
-                                alt="{{post.author.username}}">
+                            <img class="avatar-img max-un img50x50"
+                                src="{% if post.author.profile %}{{post.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                alt="{{post.author.username}}" alt="{{post.author.username}}">
                         </div>
                         <div class="info-area">
                             <h6 class="m-0"><a href="/profile/post/{{post.author.id}}/">{{post.author.username}}</a>
@@ -26,15 +27,15 @@
                     <p class="description mb-6">{{post.content}}</p>
                 </div>
                 <div class="post-img">
-                    <img src="assets/images/post-img-7.png" class="w-100" alt="image">
+                    <img src="{% static 'user/images/post-img-7.png' %}" class="w-100" alt="image">
                 </div>
             </div>
             <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
                 <div class="friends-list d-flex gap-3 align-items-center text-center">
                     <ul class="d-flex align-items-center justify-content-center">
-                        <li><img src="assets/images/avatar-2.png" alt="image"></li>
-                        <li><img src="assets/images/avatar-3.png" alt="image"></li>
-                        <li><img src="assets/images/avatar-4.png" alt="image"></li>
+                        <li><img src="{% static 'user/images/avatar-2.png' %}" alt="image"></li>
+                        <li><img src="{% static 'user/images/avatar-3.png' %}" alt="image"></li>
+                        <li><img src="{% static 'user/images/avatar-4.png' %}" alt="image"></li>
                         <li><span class="mdtxt d-center">8+</span></li>
                     </ul>
                 </div>
@@ -61,8 +62,9 @@
                 {% csrf_token %}
                 <div class="d-flex mt-5 gap-3">
                     <div class="profile-box d-none d-xxl-block">
-                        <a href="/profile/post/{{request.user.id}}/"><img src="{{request.user.profile.url}}"
-                                class="max-un img50x50" alt="icon"></a>
+                        <a href="/profile/post/{{request.user.id}}/"><img
+                                src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                alt="{{post.author.username}}" class="max-un img50x50" alt="icon"></a>
                     </div>
                     <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
                         <input placeholder="Write a comment.." name="content">
@@ -79,7 +81,8 @@
                 <div class="single-comment-area">
                     <div class="d-flex gap-2 gap-sm-4">
                         <div class="avatar-item d-center align-items-baseline">
-                            <img class="avatar-img max-un img48x48" src="{{comment.author.profile.url}}"
+                            <img class="avatar-img max-un img48x48"
+                                src="{% if comment.author.profile %}{{comment.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
                                 alt="{{comment.author.username}}">
                         </div>
                         <div class="info-item active">

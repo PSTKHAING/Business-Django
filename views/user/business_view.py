@@ -12,9 +12,11 @@ def BusinessPage(request):
 
 def BusinessPageCreate(request):
     if request.method == "GET":
+        countries = CountryModel.objects.all().order_by('-created_at')
         business_types = BusinessTypeModel.objects.all().order_by('-created_at')
         context = {
             'business_types': business_types,
+            'countries': countries
         }
         return render(request, 'user/business_page_create.html', context)
     if request.method == "POST":
@@ -25,9 +27,16 @@ def BusinessPageCreate(request):
             bio = request.POST.get('bio'),
             profile = request.FILES.get('profile'),
             background_profile = request.FILES.get('background_profile'),
+            phone = request.POST.get('phone'),
+            email = request.POST.get('email'),
+            website = request.POST.get('website'),
+            address = request.POST.get('address'),
+            country_id = request.POST.get('country'),
         )
+        business.owner.is_business = True
+        business.owner.save()
         business.save()
-        return redirect('/business/page/info/')
+        return redirect(f'/business/page/profile/{business.id}/')
     
 def BusinessPageDetails(request,id):
     business = BusinessModel.objects.get(id=id)
@@ -35,28 +44,6 @@ def BusinessPageDetails(request,id):
         'business': business,
         }
     return render(request, 'user/business_page_details.html', context)
-    
-def BusinessPageInfo(request):
-    business = BusinessModel.objects.get(owner_id =request.user.id)
-    countries = CountryModel.objects.all().order_by('-created_at')
-    business_types = BusinessTypeModel.objects.all().order_by('-created_at')
-    if request.method == "GET":
-        context = {
-            'business': business,
-            'business_types': business_types,
-            'countries': countries,
-        }
-        return render(request,'user/business_page_info.html',context)
-    if request.method == "POST":
-        business.type_id = request.POST.get('type')
-        business.phone = request.POST.get('phone')
-        business.website = request.POST.get('website')
-        business.address = request.POST.get('address')
-        business.country_id = request.POST.get('country')
-        business.owner.is_business = True
-        business.owner.save()
-        business.save()
-        return redirect(f'/business/page/profile/{business.id}/')
 
 def BusinessPageProfile(request,id):
     context = {

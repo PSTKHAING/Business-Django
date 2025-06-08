@@ -55,7 +55,6 @@ urlpatterns = [
 
     path('business/page/',business_view.BusinessPage),
     path('business/page/create/',business_view.BusinessPageCreate),
-    path('business/page/info/',business_view.BusinessPageInfo),
     path('business/page/profile/<int:id>/',business_view.BusinessPageProfile),
     path('business/page/dashboard/<int:id>/', business_view.BusinessPageDashboard),
     path('business/page/your/page/<int:id>/', business_view.BusinessPageYourPage),

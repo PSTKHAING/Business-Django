@@ -1,7 +1,7 @@
 {% extends 'user/components/base_no_left_right.html' %}
 
 {% block title %}Business Page Profile{% endblock %}
-
+{% load static %}
 {% block body %}
 
 <div class="row">
@@ -9,20 +9,24 @@
     <div class="{% if my_business_page.id == current_business_page.id %}col-xl-9 col-lg-8{% endif %}">
         <div class="banner-area pages-create mb-5">
             <div class="single-box p-5">
+                <div class="avatar-area">
+                    <img class="avatar-img w-100 img926x163"
+                        src="{% if current_business_page.background_profile %}{{current_business_page.background_profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                        alt="image">
+                </div>
                 <div class="top-area py-4 d-center flex-wrap gap-3 justify-content-between">
                     <div class="d-flex gap-3 align-items-center">
                         <div class="abs-avatar-item m-0">
-                            {% if current_business_page.profile %}
-                            <img class="avatar-img max-un img100x100" src="{{current_business_page.profile.url}}"
+                            <img class="avatar-img max-un img100x100"
+                                src="{% if current_business_page.profile %}{{current_business_page.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
                                 alt="{{current_business_page.name}}">
-                            {% endif %}
                         </div>
                         <div class="text-area text-start">
                             <h6 class="m-0 mb-1">{{current_business_page.name}}</h6>
-                            <p class="mdtxt">Public Pages-30k Member</p>
+                            <!-- <p class="mdtxt">Public Pages-30k Member</p> -->
                         </div>
                     </div>
-                    <div class="btn-item d-center gap-3">
+                    <!-- <div class="btn-item d-center gap-3">
                         <a href="#" class="cmn-btn third gap-1">
                             <i class="material-symbols-outlined mat-icon fs-xl"> add_box </i>
                             Invite
@@ -47,9 +51,9 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
+                <!-- <div class="friends-list d-flex flex-wrap gap-2 align-items-center text-center">
                     <ul class="d-flex align-items-center justify-content-center">
                         <li><img src="assets/images/avatar-3.png" alt="image"></li>
                         <li><img src="assets/images/avatar-4.png" alt="image"></li>
@@ -57,7 +61,7 @@
                         <li><img src="assets/images/avatar-6.png" alt="image"></li>
                     </ul>
                     <span class="mdtxt d-center">Rezeka, Martiola, Larmjio, and 10+ more</span>
-                </div>
+                </div> -->
                 <div class="page-details">
                     <ul class="nav mt-5 pt-4 flex-wrap gap-2 tab-area" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -129,7 +133,7 @@
                                     <div class="profile-area d-center justify-content-between">
                                         <div class="avatar-item d-flex gap-3 align-items-center">
                                             <div class="avatar position-relative">
-                                                <img class="avatar-img max-un" src="assets/images/avatar-1.png"
+                                                <img class="avatar-img max-un img48x48" src="assets/images/avatar-1.png"
                                                     alt="avatar">
                                             </div>
                                             <div class="info-area">
@@ -268,7 +272,7 @@
                                     <div class="profile-area d-center justify-content-between">
                                         <div class="avatar-item d-flex gap-3 align-items-center">
                                             <div class="avatar position-relative">
-                                                <img class="avatar-img max-un" src="assets/images/avatar-1.png"
+                                                <img class="avatar-img max-un img48x48" src="assets/images/avatar-1.png"
                                                     alt="avatar">
                                             </div>
                                             <div class="info-area">
@@ -483,7 +487,7 @@
                                                         class="top-area px-4 py-3 d-flex gap-3 align-items-start justify-content-between">
                                                         <div class="title-area">
                                                             <h6 class="m-0 mb-3"><a
-                                                                    href="public-profile-post.html">Alex</a>
+                                                                    href="#public-profile-post.html">Alex</a>
                                                             </h6>
                                                             <p class="mdtxt">The only way to solve the</p>
                                                         </div>
@@ -1141,7 +1145,7 @@
                                                             src="assets/images/followers-img-1.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Cameron
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Cameron
                                                                 Williamson</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1183,7 +1187,7 @@
                                                             src="assets/images/followers-img-2.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Esther
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Esther
                                                                 Howard</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1225,7 +1229,7 @@
                                                             src="assets/images/followers-img-3.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Brooklyn
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Brooklyn
                                                                 Simmons</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1267,7 +1271,7 @@
                                                             src="assets/images/followers-img-4.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Courtney
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Courtney
                                                                 Henry</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1309,7 +1313,7 @@
                                                             src="assets/images/followers-img-5.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Eleanor
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Eleanor
                                                                 Pena</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1351,7 +1355,7 @@
                                                             src="assets/images/followers-img-6.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Arlene
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Arlene
                                                                 McCoy</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1393,7 +1397,7 @@
                                                             src="assets/images/followers-img-7.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Devon
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Devon
                                                                 Lane</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1435,7 +1439,7 @@
                                                             src="assets/images/followers-img-8.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Ronald
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Ronald
                                                                 Richards</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1477,7 +1481,7 @@
                                                             src="assets/images/followers-img-9.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Kathryn
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Kathryn
                                                                 Murphy</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1560,7 +1564,7 @@
                                                             src="assets/images/followers-img-11.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Guy
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Guy
                                                                 Hawkins</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1643,7 +1647,7 @@
                                                             src="assets/images/followers-img-13.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Cameron
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Cameron
                                                                 Williamson</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1685,7 +1689,7 @@
                                                             src="assets/images/followers-img-14.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Wade
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Wade
                                                                 Warren</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1746,7 +1750,7 @@
                                                             src="assets/images/followers-img-6.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Arlene
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Arlene
                                                                 McCoy</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1788,7 +1792,7 @@
                                                             src="assets/images/followers-img-7.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Devon
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Devon
                                                                 Lane</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1830,7 +1834,7 @@
                                                             src="assets/images/followers-img-8.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Ronald
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Ronald
                                                                 Richards</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1872,7 +1876,7 @@
                                                             src="assets/images/followers-img-9.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Kathryn
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Kathryn
                                                                 Murphy</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1914,7 +1918,7 @@
                                                             src="assets/images/followers-img-3.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Brooklyn
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Brooklyn
                                                                 Simmons</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1956,7 +1960,7 @@
                                                             src="assets/images/followers-img-13.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Cameron
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Cameron
                                                                 Williamson</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>
@@ -1998,7 +2002,7 @@
                                                             src="assets/images/followers-img-14.png" alt="avatar">
                                                     </div>
                                                     <div class="info-area text-start">
-                                                        <h6 class="m-0"><a href="public-profile-post.html">Wade
+                                                        <h6 class="m-0"><a href="#public-profile-post.html">Wade
                                                                 Warren</a></h6>
                                                         <p class="mdtxt status">10 Mutual Friends</p>
                                                     </div>

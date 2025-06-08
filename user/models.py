@@ -7,21 +7,21 @@ class PostModel(models.Model):
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='posts')
     country = models.ForeignKey(CountryModel, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
     content = models.TextField(null=True, blank=True)
+    image1 = models.ImageField(upload_to='post_images', null=True, blank=True)
+    image2 = models.ImageField(upload_to='post_images', null=True, blank=True)
+    image3 = models.ImageField(upload_to='post_images', null=True, blank=True)
+    image4 = models.ImageField(upload_to='post_images', null=True, blank=True)
+    video = models.FileField(upload_to='post_videos', null=True, blank=True)
+    business = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     reaction = models.ManyToManyField(UserModel, related_name='post_reaction', blank=True)
 
     def __str__(self):
         return f'Post by {self.author.username}'
-
-class PostMediaModel(models.Model):
-    post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='media')
-    file = models.FileField(upload_to='post_media/')
-    file_type = models.CharField(
-        max_length=10,
-        choices=[('image', 'Image'), ('video', 'Video')]
-    )
-    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    
+    def get_images(self):
+        return [img for img in [self.image1, self.image2, self.image3, self.image4] if img]
 
 class BusinessModel(models.Model):
     type = models.ForeignKey(BusinessTypeModel,on_delete=models.SET_NULL,null=True)

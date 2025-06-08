@@ -9,6 +9,17 @@
     .filled {
         color: red;
     }
+
+    .post-img img {
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid #fff;
+        height: 100%;
+    }
+
+    .single {
+        overflow: hidden;
+    }
 </style>
 
 <div class="col-xxl-6 col-xl-5 col-lg-8 mt-0 mt-lg-10 mt-xl-0 d-flex flex-column gap-7 cus-z">
@@ -42,7 +53,8 @@
                     <div class="avatar-item d-flex gap-3 align-items-center">
                         <div class="avatar position-relative">
                             <img class="avatar-img max-un img48x48" style="border-radius: 10px;"
-                                src="{% if post.author.profile %}{{post.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}" alt="{{post.author.username}}">
+                                src="{% if post.author.profile %}{{post.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                alt="{{post.author.username}}">
                         </div>
                         <div class="info-area">
                             <h6 class="m-0"><a href="/profile/post/{{post.author.id}}/">{{post.author.username}}</a>
@@ -55,58 +67,46 @@
                     <p class="description">{{post.content}}</p>
                 </div>
 
-                {% if post.media.all|length == 1 %}
-                {% for media in post.media.all %}
+                {% with images=post.get_images %}
+                {% if images|length == 1 %}
                 <div class="post-img">
-                    <img src="{{media.file.url}}" class="w-100" alt="image">
+                    <img src="{{ images.0.url }}" class="w-100" alt="image">
                 </div>
-                {% endfor %}
-                {% elif post.media.all|length == 2 %}
-                <div class="post-img  d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                    {% for media in post.media.all %}
-                    <div class="single">
-                        <img src="{{media.file.url}}" class="w-100" alt="image">
-                    </div>
-                    {% endfor %}
-                </div>
-                {% elif post.media.all|length == 3 %}
-                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                    {% for media in post.media.all %}
-                    {% if forloop.first %}
-                    <div class="single">
-                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                    </div>
-                    <div class="single d-grid gap-3">
-                        {% elif forloop.counter == 2 or forloop.last %}
-                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                        {% if forloop.last %}
-                    </div>
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                {% elif post.media.all|length == 4 %}
-                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                    {% for media in post.media.all %}
-                    {% if forloop.first %}
-                    <div class="single d-grid gap-3">
-                        {% endif %}
 
-                        {% if forloop.counter == 1 or forloop.counter == 2 %}
-                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                        {% if forloop.counter == 2 %}
+                {% elif images|length == 2 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    {% for img in images %}
+                    <div class="single w-50">
+                        <img src="{{ img.url }}" class="w-100" alt="image">
                     </div>
-                    {% endif %}
-                    {% elif forloop.counter == 3 %}
-                    <div class="single d-grid gap-3">
-                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                        {% elif forloop.counter == 4 %}
-                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                    </div>
-                    {% endif %}
                     {% endfor %}
+                </div>
+
+                {% elif images|length == 3 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    <div class="single w-50">
+                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                    </div>
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                    </div>
+                </div>
+
+                {% elif images|length == 4 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                    </div>
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                        <img src="{{ images.3.url }}" class="w-100" alt="image">
+                    </div>
                 </div>
                 {% endif %}
+                {% endwith %}
+
             </div>
             <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
                 <div class="friends-list d-flex gap-3 align-items-center text-center">
@@ -289,7 +289,8 @@
             <form action="#">
                 <div class="d-flex mt-5 gap-3">
                     <div class="profile-box d-none d-xxl-block">
-                        <a href="#"><img src="{% static 'user/images/add-post-avatar.png' %}" class="max-un" alt="icon"></a>
+                        <a href="#"><img src="{% static 'user/images/add-post-avatar.png' %}" class="max-un"
+                                alt="icon"></a>
                     </div>
                     <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
                         <input placeholder="Write a comment..">

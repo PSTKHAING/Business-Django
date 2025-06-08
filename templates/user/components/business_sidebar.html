@@ -1,9 +1,10 @@
+{% load static %}
 {% if my_business_page.id == current_business_page.id %}
 <div class="col-xl-3 col-lg-4">
     <div class="d-block d-lg-none">
         <button class="button profile-active mb-4 mb-lg-0 d-flex align-items-center gap-2">
             <i class="material-symbols-outlined mat-icon"> tune </i>
-            <span>My profile</span>
+            <span>Admin Panel</span>
         </button>
     </div>
     <div class="profile-sidebar cus-scrollbar p-5">
@@ -15,17 +16,16 @@
         <div class="profile-item">
             <div class="profile-item d-flex gap-3 align-items-center">
                 <div class="avatar position-relative">
-                    {% if my_business_page.owner.profile %}
-                    <img class="avatar-img max-un img50x50 rounded-10" src="{{my_business_page.owner.profile.url}}"
+                    <img class="avatar-img max-un img50x50 rounded-10"
+                        src="{% if my_business_page.owner.profile %}{{my_business_page.owner.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
                         alt="{{my_business_page.owner.username}}">
-                    {% endif %}
                 </div>
                 <div class="text-area">
                     <h6 class="m-0 mb-1">{{my_business_page.owner.username}}</h6>
                     <p class="mdtxt">Owner</p>
                 </div>
             </div>
-            <div class="btn-item mt-5 d-center gap-3">
+            <!-- <div class="btn-item mt-5 d-center gap-3">
                 <a href="#" class="cmn-btn w-100 justify-content-center gap-1">
                     <i class="material-symbols-outlined mat-icon"> add </i>
                     Invite
@@ -50,7 +50,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
         <ul class="profile-link my-5 pb-5">
             <li>

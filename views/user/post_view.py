@@ -12,30 +12,25 @@ def PostCreate(request):
         return render(request, 'user/post_create.html', context)
     if request.method == 'POST':
         content = request.POST.get('content', '')
-        
-        files = request.FILES.getlist('media')
+        image1 = request.FILES.get('image1', '')
+        image2 = request.FILES.get('image2', '')
+        image3 = request.FILES.get('image3', '')
+        image4 = request.FILES.get('image4', '')
+        video = request.FILES.get('video', '')
 
         user = UserModel.objects.get(id =request.user.id)
 
         post = PostModel.objects.create(
             author=user,
             content=content,
-            country = user.country
+            image1=image1,
+            image2=image2,
+            image3=image3,
+            image4=image4,
+            video=video,
+            country = user.country,
         )
-        
-        for file in files:
-            file_type = 'file'
-            if file.content_type.startswith('image'):
-                file_type = 'image'
-            elif file.content_type.startswith('video'):
-                file_type = 'video'
-
-            media = PostMediaModel.objects.create(
-                post=post,
-                file=file,
-                file_type=file_type
-            )
-            media.save()
+        post.save()
 
         messages.success(request, "Post created successfully!")
         return redirect('/')
@@ -53,12 +48,12 @@ def PostComment(request,id,page):
     post = PostModel.objects.get(id=id)
     if request.method == 'POST':
         comment = CommentModel.objects.create(
-            user =request.user,
+            author =request.user,
             post = post,
             content = request.POST.get('content')
         )
         comment.save() 
-        return redirect(f'/post/detail/{id}/') if page == "details" else redirect('/')
+        return redirect(f'/post/details/{id}/') if page == "details" else redirect('/')
 
 def PostReaction(request, id):
     post = PostModel.objects.get(id=id)

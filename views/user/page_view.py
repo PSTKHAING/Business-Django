@@ -14,17 +14,17 @@ def Index(request):
     selectcountry = ""
     try:
         user = UserModel.objects.get(id =request.user.id)
-        posts = PostModel.objects.filter(country =user.country).order_by('-created_at').prefetch_related('media')
+        posts = PostModel.objects.filter(country =user.country).order_by('-created_at')
         selectcountry = request.POST.get('country')
         
         if selectcountry:
             request.session['country'] = selectcountry
-            posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at').prefetch_related('media')
+            posts = PostModel.objects.filter(country = selectcountry).order_by('-created_at')
         else:
             request.session['country'] = user.country.id
     except:
         user = None
-        posts = PostModel.objects.all().order_by('-created_at').prefetch_related('media')
+        posts = PostModel.objects.all().order_by('-created_at')
     countries = CountryModel.objects.all()
     context = {
         'posts':posts,
@@ -36,7 +36,7 @@ def Index(request):
 def Search(request):
     country = request.session['country']
     search = request.GET.get('search')
-    posts = PostModel.objects.filter(country = country,content__contains=search).order_by('-created_at').prefetch_related('media')
+    posts = PostModel.objects.filter(country = country,content__contains=search).order_by('-created_at')
     countries = CountryModel.objects.all()
     context = {
         'posts':posts,
