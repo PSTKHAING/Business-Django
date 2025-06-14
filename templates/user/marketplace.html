@@ -1,0 +1,323 @@
+{% extends 'user/components/base.html' %}
+
+{% block title %}Market Place{% endblock %}
+{% load static %}
+{% block body %}
+{% load humanize %}
+
+<style>
+    .filled {
+        color: red;
+    }
+
+    .post-img img {
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid #fff;
+        height: 100%;
+    }
+
+    .single {
+        overflow: hidden;
+    }
+</style>
+
+<div class="col-xxl-6 col-xl-5 col-lg-8 mt-0 mt-lg-10 mt-xl-0 d-flex flex-column gap-7 cus-z">
+    <div class="post-item d-flex flex-column gap-5 gap-md-7" id="news-feed">
+
+        <!-- <form action="/" method="POST">
+            {% csrf_token %}
+            <select name="country">
+                {% for country in countries %}
+                <option value="{{country.id}}">{{country}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Select</button>
+        </form> -->
+        {% for post in posts %}
+        <div class="post-single-box p-3 p-sm-5">
+            <div class="top-area pb-5">
+                <div class="profile-area d-center justify-content-between">
+                    <div class="avatar-item d-flex gap-3 align-items-center">
+                        <div class="avatar position-relative">
+                            <img class="avatar-img max-un img48x48" style="border-radius: 10px;"
+                                src="{% if post.author.profile %}{{post.author.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                alt="{{post.author.username}}">
+                        </div>
+                        <div class="info-area">
+                            <h6 class="m-0"><a href="/profile/post/{{post.author.id}}/">{{post.author.username}}</a>
+                            </h6>
+                            <span class="mdtxt status">{{post.created_at | naturaltime }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-4">
+                    <p class="description">{{post.content}}</p>
+                </div>
+
+                {% with images=post.get_images %}
+                {% if images|length == 1 %}
+                <div class="post-img">
+                    <img src="{{ images.0.url }}" class="w-100" alt="image">
+                </div>
+
+                {% elif images|length == 2 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    {% for img in images %}
+                    <div class="single w-50">
+                        <img src="{{ img.url }}" class="w-100" alt="image">
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% elif images|length == 3 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    <div class="single w-50">
+                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                    </div>
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                    </div>
+                </div>
+
+                {% elif images|length == 4 %}
+                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                    </div>
+                    <div class="single d-grid gap-3 w-50">
+                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                        <img src="{{ images.3.url }}" class="w-100" alt="image">
+                    </div>
+                </div>
+                {% endif %}
+                {% endwith %}
+
+            </div>
+            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
+                <div class="friends-list d-flex gap-3 align-items-center text-center">
+                    <ul class="d-flex align-items-center justify-content-center">
+                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48" alt="image"></li>
+                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48" alt="image"></li>
+                        <li><img src="{% static 'user/images/no-profile.png' %}" class="img48x48" alt="image"></li>
+                        <li><span class="mdtxt d-center">8+</span></li>
+                    </ul>
+                </div>
+                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
+                    <button type="button" class="mdtxt"
+                        onclick="window.location.href='/business/post/details/{{post.id}}/'">4
+                        Comments</button>
+                    <button class="mdtxt">1 Shares</button>
+                </div>
+            </div>
+            <div class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
+                <button class="d-center gap-1 gap-sm-2 mdtxt reaction" data-post-id="{{ post.id }}">
+                    <i
+                        class="{% if request.user in post.reaction.all %}fas fa-heart filled{% else %}far fa-heart{% endif %}"></i>
+                    Like
+                </button>
+                <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
+                    onclick="window.location.href='/business/post/details/{{post.id}}/'">
+                    <i class="material-symbols-outlined mat-icon"> chat </i>
+                    Comment
+                </button>
+                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                    <i class="material-symbols-outlined mat-icon"> share </i>
+                    Share
+                </button>
+            </div>
+            <form action="/business/post/comment/{{post.id}}/index/" method="POST">
+                {% csrf_token %}
+                <div class="d-flex mt-5 gap-3">
+                    <div class="profile-box d-none d-xxl-block">
+                        <a href="/profile/post/"><img
+                                src="{% if user.profile %}{{user.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
+                                class="max-un img50x50 rounded-10" alt="{{user.username}}"></a>
+                    </div>
+                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
+                        <input placeholder="Write a comment.." name="content">
+                    </div>
+                    <div class="btn-area d-flex">
+                        <button class="cmn-btn px-2 px-sm-5 px-lg-6" type="submit">
+                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl"> near_me </i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Add an event listener to each like button
+                document.querySelectorAll('.like-comment-share .reaction').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const postId = this.dataset.postId;
+                        const url = `/business/post/reaction/${postId}/`;
+                        const heartIcon = this.querySelector('i'); // Get the heart icon
+
+                        // Send the POST request
+                        fetch(url, {
+                            method: 'POST',
+                            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                // Change the icon based on whether the post is liked or not
+                                if (heartIcon.classList.contains('fas')) {
+                                    heartIcon.classList.remove('fas', 'fa-heart', 'filled');
+                                    heartIcon.classList.add('far', 'fa-heart');
+                                } else {
+                                    heartIcon.classList.remove('far', 'fa-heart');
+                                    heartIcon.classList.add('fas', 'fa-heart', 'filled');
+                                }
+                            })
+                            .catch(error => console.log('Error:', error));
+                    });
+                });
+            });
+
+
+        </script>
+
+        <div class="post-single-box p-3 p-sm-5">
+            <div class="top-area pb-5">
+                <div class="profile-area d-center justify-content-between">
+                    <div class="avatar-item d-flex gap-3 align-items-center">
+                        <div class="avatar position-relative">
+                            <img class="avatar-img max-un" src="{% static 'user/images/avatar-1.png' %}" alt="avatar">
+                        </div>
+                        <div class="info-area">
+                            <h6 class="m-0"><a href="public-profile-post.html">Lori Cortez</a></h6>
+                            <span class="mdtxt status">Active</span>
+                        </div>
+                    </div>
+                    <div class="btn-group cus-dropdown">
+                        <button type="button" class="dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-symbols-outlined fs-xxl m-0"> more_horiz </i>
+                        </button>
+                        <ul class="dropdown-menu p-4 pt-2">
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> bookmark_add </i>
+                                    <span>Saved Post</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> person_remove </i>
+                                    <span>Unfollow</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> hide_source </i>
+                                    <span>Hide Post</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> lock </i>
+                                    <span>Block</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="droplist d-flex align-items-center gap-2" href="#">
+                                    <i class="material-symbols-outlined mat-icon"> flag </i>
+                                    <span>Report Post</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="py-4">
+                    <p class="description">My Travel Video</p>
+                    <p class="hastag d-flex gap-2">
+                        <a href="#">#Viral</a>
+                        <a href="#">#travel</a>
+                    </p>
+                </div>
+                <div class="post-img video-item">
+                    <div class="plyr__video-embed player">
+                        <iframe src="https://www.youtube.com/embed/LXb3EKWsInQ"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
+                <div class="friends-list d-flex gap-3 align-items-center text-center">
+                    <ul class="d-flex align-items-center justify-content-center">
+                        <li><img src="{% static 'user/images/avatar-2.png' %}" alt="image"></li>
+                        <li><img src="{% static 'user/images/avatar-3.png' %}" alt="image"></li>
+                        <li><img src="{% static 'user/images/avatar-4.png' %}" alt="image"></li>
+                        <li><span class="mdtxt d-center">8+</span></li>
+                    </ul>
+                </div>
+                <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
+                    <button type="button" class="mdtxt" onclick="window.location.href='/post/details/{{post.id}}/'">4
+                        Comments</button>
+                    <button class="mdtxt">1 Shares</button>
+                </div>
+            </div>
+            <div class="like-comment-share py-5 d-center flex-wrap gap-3 gap-md-0 justify-content-between">
+                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                    <i class="material-symbols-outlined mat-icon"> favorite </i>
+                    Like
+                </button>
+                <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
+                    onclick="window.location.href='/post/details/{{post.id}}/'">
+                    <i class="material-symbols-outlined mat-icon"> chat </i>
+                    Comment
+                </button>
+                <button class="d-center gap-1 gap-sm-2 mdtxt">
+                    <i class="material-symbols-outlined mat-icon"> share </i>
+                    Share
+                </button>
+            </div>
+            <form action="#">
+                <div class="d-flex mt-5 gap-3">
+                    <div class="profile-box d-none d-xxl-block">
+                        <a href="#"><img src="{% static 'user/images/add-post-avatar.png' %}" class="max-un"
+                                alt="icon"></a>
+                    </div>
+                    <div class="form-content input-area py-1 d-flex gap-2 align-items-center w-100">
+                        <input placeholder="Write a comment..">
+                        <div class="file-input d-flex gap-1 gap-md-2">
+                            <div class="file-upload">
+                                <label class="file">
+                                    <input type="file">
+                                    <span class="file-custom border-0 d-grid text-center">
+                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
+                                            gif_box </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="file-upload">
+                                <label class="file">
+                                    <input type="file">
+                                    <span class="file-custom border-0 d-grid text-center">
+                                        <span class="material-symbols-outlined mat-icon m-0 xxltxt">
+                                            perm_media </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <span class="mood-area">
+                                <span class="material-symbols-outlined mat-icon m-0 xxltxt"> mood
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="btn-area d-flex">
+                        <button class="cmn-btn px-2 px-sm-5 px-lg-6">
+                            <i class="material-symbols-outlined mat-icon m-0 fs-xxl"> near_me </i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

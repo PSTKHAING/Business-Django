@@ -12,7 +12,6 @@ class PostModel(models.Model):
     image3 = models.ImageField(upload_to='post_images', null=True, blank=True)
     image4 = models.ImageField(upload_to='post_images', null=True, blank=True)
     video = models.FileField(upload_to='post_videos', null=True, blank=True)
-    business = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     reaction = models.ManyToManyField(UserModel, related_name='post_reaction', blank=True)
@@ -43,6 +42,33 @@ class BusinessModel(models.Model):
 
 class CommentModel(models.Model):
     post = models.ForeignKey(PostModel, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class BusinessPostModel(models.Model):
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='business_posts')
+    country = models.ForeignKey(CountryModel, on_delete=models.CASCADE, related_name='business_posts', null=True, blank=True)
+    business = models.ForeignKey(BusinessModel,on_delete=models.CASCADE,null=True,blank=True)
+    content = models.TextField(null=True, blank=True)
+    image1 = models.ImageField(upload_to='business_post_images', null=True, blank=True)
+    image2 = models.ImageField(upload_to='business_post_images', null=True, blank=True)
+    image3 = models.ImageField(upload_to='business_post_images', null=True, blank=True)
+    image4 = models.ImageField(upload_to='business_post_images', null=True, blank=True)
+    video = models.FileField(upload_to='business_post_videos', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    reaction = models.ManyToManyField(UserModel, related_name='business_post_reaction', blank=True)
+
+    def __str__(self):
+        return f'Business Post by {self.author.username}'
+    
+    def get_images(self):
+        return [img for img in [self.image1, self.image2, self.image3, self.image4] if img]
+    
+class BusinessPostCommentModel(models.Model):
+    post = models.ForeignKey(BusinessPostModel, on_delete=models.CASCADE, related_name='business_post_comments')
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

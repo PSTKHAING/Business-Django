@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from views.user import page_view,auth_view,post_view,business_view
+from views.user import page_view,auth_view,post_view,business_view,business_post_view
 
 urlpatterns = [
      path(settings.ADMIN_LOGIN_URL, admin.site.urls),
@@ -62,5 +62,12 @@ urlpatterns = [
     path('business/page/setting/<int:id>/', business_view.BusinessPageSetting),
     path('business/page/profile/update/<int:id>/',business_view.BusinessPageProfileUpdate),
     path('business/page/details/<int:id>/',business_view.BusinessPageDetails),
+
+    path('business/post/create/',business_post_view.BusinessPostCreate),
+    path('business/post/details/<int:id>/',business_post_view.BusinessPostDetails),
+    path('business/post/reaction/<int:id>/',business_post_view.BusinessPostReaction),
+    path('business/post/comment/<int:id>/<str:page>/',business_post_view.BusinessPostComment,name='business_post_comment'),
+
+    path('marketplace/',page_view.MarketPlace),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

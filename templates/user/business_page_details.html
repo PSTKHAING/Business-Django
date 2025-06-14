@@ -105,18 +105,6 @@
             tabindex="0">
             <div class="row">
                 <div class="col-xxl-8 col-xl-8 col-lg-12 d-flex flex-column gap-7">
-                    <div class="share-post d-flex gap-3 gap-sm-5 p-3 p-sm-5">
-                        <div class="profile-box">
-                            <a href="/business/page/details/{{business.id}}/">
-                                <img src="{% if business.profile %}{{business.profile.url}}{% else %}{% static 'user/images/no-profile.png' %}{% endif %}"
-                                    style="border-radius: 10px;" class="max-un img50x50" alt="{{user.username}}">
-                            </a>
-                        </div>
-                        <form action="#" class="w-100 position-relative">
-                            <textarea onclick="window.location.href='/post/create/'" readonly cols="10"
-                                class="resize-none" rows="2" placeholder="Business Page Post"></textarea>
-                        </form>
-                    </div>
                     <div class="post-item d-flex flex-column gap-5 gap-md-7">
                         {% for post in posts %}
                         <div class="post-single-box p-3 p-sm-5">
@@ -140,58 +128,46 @@
                                     <p class="description">{{post.content}}</p>
                                 </div>
 
-                                {% if post.media.all|length == 1 %}
-                                {% for media in post.media.all %}
+                                {% with images=post.get_images %}
+                                {% if images|length == 1 %}
                                 <div class="post-img">
-                                    <img src="{{media.file.url}}" class="w-100" alt="image">
+                                    <img src="{{ images.0.url }}" class="w-100" alt="image">
                                 </div>
-                                {% endfor %}
-                                {% elif post.media.all|length == 2 %}
-                                <div class="post-img  d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                                    {% for media in post.media.all %}
-                                    <div class="single">
-                                        <img src="{{media.file.url}}" class="w-100" alt="image">
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                {% elif post.media.all|length == 3 %}
-                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                                    {% for media in post.media.all %}
-                                    {% if forloop.first %}
-                                    <div class="single">
-                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                                    </div>
-                                    <div class="single d-grid gap-3">
-                                        {% elif forloop.counter == 2 or forloop.last %}
-                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                                        {% if forloop.last %}
-                                    </div>
-                                    {% endif %}
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                {% elif post.media.all|length == 4 %}
-                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
-                                    {% for media in post.media.all %}
-                                    {% if forloop.first %}
-                                    <div class="single d-grid gap-3">
-                                        {% endif %}
 
-                                        {% if forloop.counter == 1 or forloop.counter == 2 %}
-                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                                        {% if forloop.counter == 2 %}
+                                {% elif images|length == 2 %}
+                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    {% for img in images %}
+                                    <div class="single w-50">
+                                        <img src="{{ img.url }}" class="w-100" alt="image">
                                     </div>
-                                    {% endif %}
-                                    {% elif forloop.counter == 3 %}
-                                    <div class="single d-grid gap-3">
-                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                                        {% elif forloop.counter == 4 %}
-                                        <img src="{{ media.file.url }}" class="w-100" alt="image">
-                                    </div>
-                                    {% endif %}
                                     {% endfor %}
+                                </div>
+
+                                {% elif images|length == 3 %}
+                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    <div class="single w-50">
+                                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                                    </div>
+                                    <div class="single d-grid gap-3 w-50">
+                                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                                    </div>
+                                </div>
+
+                                {% elif images|length == 4 %}
+                                <div class="post-img d-flex justify-content-between flex-wrap gap-2 gap-lg-3">
+                                    <div class="single d-grid gap-3 w-50">
+                                        <img src="{{ images.0.url }}" class="w-100" alt="image">
+                                        <img src="{{ images.1.url }}" class="w-100" alt="image">
+                                    </div>
+                                    <div class="single d-grid gap-3 w-50">
+                                        <img src="{{ images.2.url }}" class="w-100" alt="image">
+                                        <img src="{{ images.3.url }}" class="w-100" alt="image">
+                                    </div>
                                 </div>
                                 {% endif %}
+                                {% endwith %}
+
                             </div>
                             <div class="total-react-share pb-4 d-center gap-2 flex-wrap justify-content-between">
                                 <div class="friends-list d-flex gap-3 align-items-center text-center">
@@ -207,7 +183,7 @@
                                 </div>
                                 <div class="react-list d-flex flex-wrap gap-6 align-items-center text-center">
                                     <button type="button" class="mdtxt"
-                                        onclick="window.location.href='/post/details/{{post.id}}/'">4
+                                        onclick="window.location.href='/business/post/details/{{post.id}}/'">4
                                         Comments</button>
                                     <button class="mdtxt">1 Shares</button>
                                 </div>
@@ -220,7 +196,7 @@
                                     Like
                                 </button>
                                 <button type="button" class="d-center gap-1 gap-sm-2 mdtxt"
-                                    onclick="window.location.href='/post/details/{{post.id}}/'">
+                                    onclick="window.location.href='/business/post/details/{{post.id}}/'">
                                     <i class="material-symbols-outlined mat-icon"> chat </i>
                                     Comment
                                 </button>
@@ -229,7 +205,7 @@
                                     Share
                                 </button>
                             </div>
-                            <form action="/post/comment/{{post.id}}/index/" method="POST">
+                            <form action="/business/post/comment/{{post.id}}/index/" method="POST">
                                 {% csrf_token %}
                                 <div class="d-flex mt-5 gap-3">
                                     <div class="profile-box d-none d-xxl-block">
@@ -256,7 +232,7 @@
                                 document.querySelectorAll('.like-comment-share .reaction').forEach(button => {
                                     button.addEventListener('click', function () {
                                         const postId = this.dataset.postId;
-                                        const url = `/post/reaction/${postId}/`;
+                                        const url = `/business/post/reaction/${postId}/`;
                                         const heartIcon = this.querySelector('i'); // Get the heart icon
 
                                         // Send the POST request

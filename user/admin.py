@@ -4,3 +4,4 @@ from user.models import *
 
 admin.site.register(PostModel)
 admin.site.register(BusinessModel)
+admin.site.register(BusinessPostModel)

@@ -125,3 +125,15 @@ def ProfileVideo(request,id):
         
         }
     return render(request,'user/profile_video.html',context)
+
+def MarketPlace(request):
+    try:
+        business = BusinessModel.objects.get(owner_id =request.user.id)
+        posts = BusinessPostModel.objects.filter(country =business.country).order_by('-created_at')
+    except:
+        business = None
+        posts = BusinessPostModel.objects.all().order_by('-created_at')
+    context = {
+        'posts':posts,
+    }
+    return render(request, 'user/marketplace.html',context)

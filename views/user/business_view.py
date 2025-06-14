@@ -40,14 +40,18 @@ def BusinessPageCreate(request):
     
 def BusinessPageDetails(request,id):
     business = BusinessModel.objects.get(id=id)
+    posts = BusinessPostModel.objects.filter(business=business).order_by('-created_at')
     context = {
         'business': business,
+        'posts': posts
         }
     return render(request, 'user/business_page_details.html', context)
 
 def BusinessPageProfile(request,id):
+    business = BusinessModel.objects.get(id = id)
+    posts = BusinessPostModel.objects.filter(business = business).order_by('-created_at')
     context = {
-        
+        "posts":posts
     }
     return render(request, 'user/business_page_profile.html', context)
 
